@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>收藏向：Git学习资料 - 鱼记苦瓜糖</title>
+<meta property="og:title" content="收藏向：Git学习资料 - 鱼记苦瓜糖">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://user.qzone.qq.com/798211544/infocenter">Qzone</a></li>
+    
+    <li><a href="https://www.zhihu.com/people/6995c3d508c9d5e692a95535821a8f2a">知乎</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">收藏向：Git学习资料</h1>
+
+    
+    <span class="article-date">2019-05-08</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>git 学习资料
+用R语言的blogdown + hugo + netlify + github搭建静态博客系统，用rstudio专注于写作。<br />
+（1）准备工作<br />
+安装R(<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>)<br />
+安装rstudio(<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>)<br />
+安装git(<a href="https://git-scm.com/" class="uri">https://git-scm.com/</a>)<br />
+①rstudio配置<br />
+Spareshare<br />
+安装好上述软件后，需要对rstudio进行一下简单配置：<br />
+Tools -&gt; Global Options -&gt; Sweave -&gt; Weave Rnw files using:knitr<br />
+Tools -&gt; Global Options -&gt; Sweave -&gt; Typeset LaTex into PDF using:XeLaTeX<br />
+这个是生成PDF文件用的，中文用户最好选择XeLaTeX<br />
+Tools -&gt; Global Options -&gt; Git/SVN -&gt; Git executable:<br />
+安装好git后，打开这里应该就可以看到git的路径了<br />
+Tools -&gt; Global Options -&gt; Packages -&gt; CRAN mirror:<br />
+建议选择一个距离你比较近的镜像，速度会快点。国内用户选择一个 China 的镜像。<br />
+global……terminal——Git bash<br />
+②安装blogdown和hugo<br />
+安装blogdown：<br />
+install.packages(‘blogdown’)<br />
+安装hugo<br />
+blogdown::install_hugo()<br />
+如果安装hugo的时候出现下面的错误(貌似有同志也有这个问题)：<br />
+&gt; blogdown::install_hugo()<br />
+The latest hugo version is 0.32.4<br />
+trying URL ‘<a href="https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip" class="uri">https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip</a>’<br />
+trying URL ‘<a href="https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip" class="uri">https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip</a>’<br />
+Error in download.file(url, …, method = method, extra = extra) : cannot open URL ‘<a href="https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip" class="uri">https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip</a>’<br />
+In addition: Warning messages:<br />
+1: In download.file(url, …, method = method, extra = extra) : InternetOpenUrl failed: ’’<br />
+2: In download.file(url, …, method = method, extra = extra) : InternetOpenUrl failed: ’’<br />
+这个时候就直接安装开发版，就可以解决：<br />
+install.packages(“devtools”)<br />
+devtools::install_github(“rstudio/blogdown”)<br />
+如果安装了开发版的blogdown，还没有搞定，那么就把错误信息中的链接复制到浏览器直接下载，把文件解压发现里面就只有一个文件，Yihui选择hugo就是因为hugo只有一个文件，够简单，至于为什么我会知道Yihui选择hugo的原因？因为我读了blogdown故事(<a href="https://yihui.name/en/2017/12/blogdown-book/" class="uri">https://yihui.name/en/2017/12/blogdown-book/</a>)。<br />
+把解压好的hugo.exe文件放在d:/根目录下，然后输入下面代码安装hugo：<br />
+注意这里是三个冒号<br />
+blogdown:::install_hugo_bin(“d:/hugo.exe”)<br />
+安装成功。<br />
+③github<br />
+用github创建repository，点击Create repository就可以创建好用于保存网站的repository。<br />
+④关于修改主题<br />
+如果你想修改主题，可以到https://themes.gohugo.io/找主题修改。<br />
+关于修改主题的非技术TIPS，可以看看下面两段话，引用自Yihui的blogdown使用文档**1.6 Other themes最下面引用的一段话：<br />
+If you choose to dig a rather deep hole, someday you will have no choice but keep on digging, even with tears. -— Liyun Chen13<br />
+Yihui是这样说的：<br />
+Another thing to keep in mind is that the more effort you make in a complicated theme, the more difficult it is to switch to other themes in the future, because you may have customized a lot of things that are not straightforward to port to another theme.<br />
+所以呢，可以先把hugo官网上面的主题都浏览一下，看看哪个合眼缘，挑好再改吧。<br />
+学习怎么修改主题的另外一个好去处是hugo-xmin的pull request。如果你有好的改进，也可以在这里提交pull request让别人学习。</p>
+<p>过程回顾：<br />
+github SSH KEY。（提前注意SSH KEY不要密码）<br />
+建仓库。仓库SSH地址，复制粘贴到Rstudio file——new project——version——git——URL，名字仓库名<br />
+钥匙就是绿色了。</p>
+<p>blogdown::new_site()<br />
+git config –global user.name yourname # “你的名字或昵称”<br />
+git config –global user.email <a href="mailto:youremail@xxx.com" class="email">youremail@xxx.com</a> # “你的邮箱”<br />
+git add .<br />
+git commit -m“MOMOYZY233”<br />
+git push.<br />
+blogdown::serve_site()<br />
+new post<br />
+然后push~</p>
+<p>参考资料<br />
+1. blogdown: Creating Websites with R Markdown(<a href="https://bookdown.org/yihui/blogdown/" class="uri">https://bookdown.org/yihui/blogdown/</a>)<br />
+1. Up and running with blogdown(<a href="https://alison.rbind.io/post/up-and-running-with-blogdown/" class="uri">https://alison.rbind.io/post/up-and-running-with-blogdown/</a>)<br />
+1. 本站是如何建成的：R blogdown 简介(<a href="http://xuer.dapengde.com/post/hugo-blogdown/" class="uri">http://xuer.dapengde.com/post/hugo-blogdown/</a>)<br />
+1. R blogdown 科研网站的公式和参考文献(<a href="http://www.pzhao.org/zh/post/rblogdown-bib/" class="uri">http://www.pzhao.org/zh/post/rblogdown-bib/</a>)<br />
+1. 如何在 R markdown 里输出 r pi 并前后加上小撇`(<a href="http://www.pzhao.org/zh/post/backticks-in-rmd/" class="uri">http://www.pzhao.org/zh/post/backticks-in-rmd/</a>)<br />
+1. Enable Code folding(<a href="https://github.com/statnmap/hugo-statnmap-theme/pull/1/filesEnable" class="uri">https://github.com/statnmap/hugo-statnmap-theme/pull/1/filesEnable</a> Code folding(statnmap/hugo statnmap theme#1/files)<br />
+1. Making a Website Using blogdown, hugo, and GitHub pages(<a href="https://proquestionasker.github.io/blog/Making_Site/" class="uri">https://proquestionasker.github.io/blog/Making_Site/</a>)<br />
+1. Getting Started With blogdown(<a href="https://www.znmeb.mobi/2017/05/12/getting-started-with-blogdown/" class="uri">https://www.znmeb.mobi/2017/05/12/getting-started-with-blogdown/</a>)<br />
+1. rbind support(<a href="https://support.rbind.io/" class="uri">https://support.rbind.io/</a>)<br />
+作者：钟浩光<br />
+编辑：陈新宇<br />
+审稿：何通 赵鹏</p>
+<p>模式一：多人，纯在线模式<br />
+高级版的腾讯文档 你不用学git，不用学fork，不用学任何东西。只要是你项目组授权成员，你就可以在线编辑文档。<br />
+模式二： 多人，Fork经典模式<br />
+先fork到自己 独立编辑 pull request 合并到一起<br />
+模式三：一人多个终端，一个账户<br />
+用One Drive 托管文件夹 各自建立ssh通道 定义本机的用户名和邮件 然后就可以操作git了<br />
+模式四 ： 一人多个终端，多个账户 一人当做多人用 纯git操作<br />
+首先，你需要执行下面两条命令，作为git的基础配置，作用是告诉git你是谁，你输入的信息将出现在你创建的提交中。</p>
+<pre><code>git config --global user.name yourname  # &quot;你的名字或昵称&quot;  
+git config --global user.email youremail@xxx.com # &quot;你的邮箱&quot;  </code></pre>
+<p>git作为支持分布式版本管理的工具，它管理的库（repository）分为本地库、远程库。</p>
+<p>这里我们把 add(暂存)、提交(commit)、推送(push)，放到一起说，因为每次上传代码都需要执行这三步（关于冲突处理、分支合并等以后用到了再研究，本文只说基础部分）。</p>
+<pre><code>git add     # 加入到暂存区  
+git commit  # 提交到本地库  
+git push    # 发送给远程库  </code></pre>
+<p>管理员：可以在线编辑文档<br />
+非管理员：不可编辑<br />
+PUSH：都不可</p>
+<p>参考：git学习资源<br />
+progit中文版：<a href="https://gitee.com/progit/" class="uri">https://gitee.com/progit/</a><br />
+廖雪峰-Git教程：<a href="https://www.liaoxuefeng.com/wiki/896043488029600" class="uri">https://www.liaoxuefeng.com/wiki/896043488029600</a><br />
+菜鸟教程：<a href="https://www.runoob.com/git/git-tutorial.html" class="uri">https://www.runoob.com/git/git-tutorial.html</a><br />
+git常规命令练习：<a href="https://learngitbranching.js.org/" class="uri">https://learngitbranching.js.org/</a><br />
+git的资料整理：<a href="https://github.com/xirong/my-git" class="uri">https://github.com/xirong/my-git</a><br />
+GitHub 漫游指南：<a href="https://github.com/phodal/github" class="uri">https://github.com/phodal/github</a><br />
+GitHub秘籍：<a href="https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md" class="uri">https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md</a><br />
+动画方式练习：<a href="git:http://onlywei.github.io/explain-git-with-d3/" class="uri">git:http://onlywei.github.io/explain-git-with-d3/</a><br />
+版本管理工具介绍—Git篇：<a href="http://www.imooc.com/learn/208" class="uri">http://www.imooc.com/learn/208</a><br />
+版本控制入门 – 搬进Github：<a href="http://www.imooc.com/learn/390" class="uri">http://www.imooc.com/learn/390</a><br />
+Git动画演示：<a href="https://learngitbranching.js.org/?demo" class="uri">https://learngitbranching.js.org/?demo</a></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

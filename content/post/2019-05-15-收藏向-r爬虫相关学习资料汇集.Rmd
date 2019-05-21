@@ -1,0 +1,336 @@
+---
+title: 收藏向：R爬虫相关学习资料汇集
+author: 鱼记苦瓜糖
+date: '2019-05-15'
+slug: 收藏向-r爬虫相关学习资料汇集
+categories:
+  - R
+tags: []
+---
+
+常用包  
+
+rvest  
+xml2  
+Rcurl  
+httr  
+rvest  
+rvest包可能是R语言中数据抓取使用频率最高的包了，它的知名度和曝光度在知乎的数据分析相关帖子和回答中都很高。  
+read_html()：下载网页,读取html文档或链接，可以是url链接，也可以是本地的html文件；   
+html_nodes()：获得指定名称的网页元素、节点；  
+html_text()：提取tags内文本,获得指定名称的网页元素、节点文本；  
+html_attrs()：获得指定的网址；  
+html_table() :提取tags内表格支持xpath  
+如果tags层数较多，必须使用selectorGadget复制准确的路径。  
+使用方式：开启SelectorGadget,然后鼠标选中位置，右击选择检查元素，光标移动到tags上。
+然后选择copy,选择selector或xpath 选项。  
+
+[R爬虫案例]  
+rvest 爬取ncbi文献列表  
+豆瓣图书 Top 榜  
+爬取高德地图  
+使用XML抓取表格数据（爬取勇士队球员数据）   
+使用rvest抓取网页数据（爬取关于特朗普的百度新闻）  
+使用jsonlite抓取json格式数据（爬取高德地图温州各个行政区域的中心）  
+使用RSelenium模拟登录抓取数据（模拟登录人大经济论坛爬取R语言板块数据）  
+使用PhantomJS不登陆抓取数据（抓取国家数据各省的近13个月CPI）  
+另外你也会学到一些数据处理的小技巧  
+濒危世界遗产可视化  
+爬取温度数据  
+
+——rvest 爬取ncbi文献列表  
+library(rvest)  
+library(knitr)  
+link <- 'https://www.ncbi.nlm.nih.gov/pubmed/?term=disaster'  
+web <- read_html(link)  
+title <- web %>% html_nodes('div.rslt p.title a') %>%html_text()  
+author <- web %>% html_nodes('div.supp p.desc') %>%html_text()  
+journal <- web %>% html_nodes('div.supp p.details span') %>%html_text()  
+dat <- data.frame(Title = title, Author = author, Journal = journal)  
+kable(dat, format="html")  
+write.table(dat, 'disaster_paper.txt', sep="", row.names = F, quote = F)  
+——豆瓣图书 Top 榜  
+library("rvest")  
+library("xml2")          #加载用到的包  
+book <-data.frame()           #先建立一个空的数据框  
+for (i in 1:10){                  #写一个循环，批量爬取10个页面的数据  
+  url <- paste0("https://book.douban.com/top250?start=",(i-1)*25)   #paste0()用来连接字符串  
+  web <- read_html(url,encoding="UTF-8")  
+
+  name <- web %>% html_nodes("tr>td:nth-child(2)>div.pl2>a") %>% html_text() #爬取书名  
+
+  info <-web %>% html_nodes("tr>td:nth-child(2)>p.pl") %>% html_text()    #爬取图书具体信息，包括作者、出版社、出版时间等  
+
+  point<-web %>% html_nodes("div.star.clearfix>span.rating_nums") %>% html_text() %>% as.numeric()  #爬取评分  
+
+  value<-web %>% html_nodes("div.star.clearfix>span.pl") %>% html_text() %>% as.character()    #爬取评分人数  
+
+  bookinfo <-data.frame(name,info,point,value)  
+  book <-rbind(book,bookinfo)  
+}
+
+write.csv(book,file="douban_book.csv")    #保存数据  
+直接在excel里面对数据进行清洗，数据分列、去除冗余字符等，再将清洗完成的数据保存为csv格式。  
+
+接下来就可以用ggplot2包来画图分析。  
+
+library("sqldf")  
+library("ggplot2") #加载所用到的包  
+book <- read.csv("E:/doubanbook250.csv") #打开文件  
+head（book,10）#查看数据前10行  
+看一下这些书作者的国籍分布。  
+ggplot(book,aes(x=nation)) + geom_bar() #画频数分布条形图  
+超过一半的书作者都是中国人，将国籍为“中”的数据筛选出去，看一下榜单上外国图书情况。  
+用subset（）筛选出作者不是中国人的图书，然后画一个频数分布条形图。  
+foreign_book <- subset(book,nation !="中")     
+ggplot(foreign_book,aes(x=nation)) + geom_bar()  
+ggplot(sqldf("select*from book where nation in ('中','英' ,'美' ,'日','法')")  
+       ,aes(x=factor(nation),y=rating)) + geom_boxplot()  
+       rating_order <- sqldf("select * from book order by rating desc")  
+head(rating_order,10)$name  #查看评分最高的十本书  
+comments_order <- sqldf("select * from book order by comments desc")  
+head(comments_order,10)$name  #查看评价人数最高的十本书  
+评价人数一定程度上也能说明图书目前的火热程度，筛选出评价人数最多的十本书，分别是《追风筝的人 》、《解忧杂货店》、《小王子》、《白夜行》、《围城》、《挪威的森林》、《三体: “地球往事”三部曲之一》、《嫌疑人X的献身》、《百年孤独》、《 看见 》。  
+
+5  
+ggplot(book,aes(x=year)) + geom_freqpoly(binwidth = 1)   
+ #出版年份频数多边形  
+press_group <- sqldf("select press,count(*) as press_num from book group by press ")  
+press_group_top <- sqldf("select * from press_group where press_num > 9")
+press_group_top  
+author_top <- sqldf("select author,count(*) as author_num from book group by author")  
+sqldf("select * from author_top  where author_num > 3 order by author_num desc")  
+
+爬取高德地图  
+表格数据抓取  
+表格数据是最容易抓取的数据格式，直接使用XML包中的readHTMLTable函数，一页中的多个表格会使用列表的形式存储，在使用readHTNLTable的时候，header=T可以标记出所抓取的表格是列名，大多说情况抓过来表格的列名是乱码的，你可以使用rvest::repair_encoding对它们进行修复。爬取勇士队球员数据的代码如下：  
+抓取表格数据(抓取勇士队的球员数据)  
+library(XML)  
+url <- 'http://www.stat-nba.com/team/GSW.html'  
+dt1 <- readHTMLTable(url,header = T)  
+names(dt1[[1]]) <- rvest::repair_encoding(names(dt1[[1]]))  
+head(dt1[[1]])  
+球员 出场 首发 时间 投篮 命中 出手 三分 命中 出手 罚球 命中 出手  篮板  
+1凯文-杜兰特 121234.753.8% 8.916.646.7% 2.96.386.9% 4.45.17.5  
+2斯蒂芬-库里 131332.446.7% 7.516.238.8% 3.69.394.4% 6.56.84.7  
+3克莱-汤普森 131332.951.4% 8.516.547.1% 3.77.875.0% 0.50.63.8  
+4德雷蒙德-格林 131329.849.5% 3.57.035.7% 1.23.279.4% 2.12.67.9  
+5大卫-韦斯特 12011.368.6% 2.94.375.0% 0.30.380.0% 0.70.82.3  
+6尼克-杨 12013.044.1% 2.24.941.7% 1.74.060.0% 0.30.41.0  
+前场 后场 助攻 抢断 盖帽 失误 犯规 得分  
+10.86.84.90.62.43.42.325.2  
+20.54.26.71.80.22.62.225.2  
+30.53.42.70.70.81.82.221.1  
+41.16.86.71.01.33.23.010.2  
+51.01.31.30.71.41.41.66.8  
+60.30.80.90.80.10.41.16.3  
+rvest抓取网页数据  
+rvest是R用户使用率最多的爬虫包，它简洁地语法可以解决大部分的爬虫问题。它的使用方法比较固定1、使用read_html读取网页；2、通过CSS或Xpath获取所需要的节点并使用html_nodres读取节点内容；3、结合stringr包对数据进行清理。下面使用它爬取关于特朗普的百度新闻，具体代码如下：  
+library(rvest)  
+library(stringr)  
+library(rlist)  
+url <- 'http://news.baidu.com/ns?cl=2&rn=20&tn=news&word=%E7%89%B9%E6%9C%97%E6%99%AE&ie=utf-8'  
+抓取网页   
+httr_web <- read_html(url,encoding = 'utf-8')  
+抓取新闻标题  
+title <- httr_web%>%html_nodes('h3>a')%>%html_text(trim = T)  
+抓取新闻发布者与日期  
+author <- httr_web%>%html_nodes('p.c-author')%>%html_text(trim = T)  
+candidate_date=Sys.Date()%>%format('%Y年%m月%d日')  
+fun <- function(x){  
+re=if(length(x)==3){  
+re=c(x[1],candidate_date,x[length(x)])  
+}else{  
+re= x[-2]  
+}  
+re=data.frame(发布者=re[1],日期=re[2],时间=re[3])  
+return(re)  
+}  
+news_Trump <- data.frame(标题=title ,   
+author%>%str_split('s')%>%lapply(fun)%>%list.stack())  
+tail(news_Trump)  
+标题 发布者 日期 时间  
+15特朗普访越车队驶过河内歌剧院 引众人围观 网易 2017年11月12日 6小时前  
+16特朗普:美俄就政治解决叙利亚问题达成一致协议 环球网 2017年11月12日 9小时前  
+17英媒:印度为迎接特朗普女儿 围捕乞丐暂住监狱 腾讯新闻 2017年11月12日 14小时前  
+18【独家】他此行的外交礼遇有点不一样 环球网 2017年11月12日 7小时前  
+19得分“A+”的不止有特朗普外孙女,更有这支军队 中国军网 2017年11月12日 6小时前  
+20多位专家谈中美关系:两国合作前景广阔 中国新闻网 2017年11月12日 2小时前
+
+——抓取json格式数据  
+json数据是一些列数据的嵌套，它的一般格式如下 {key1:var1:{key2:var2,...},...}, 这种格式的数据通常为网站的开放数据，可以申请目标网站的API，然后获取数据。获得API后，rvest可以很容易处理这种数据，但由于数据格式比较复杂，后期数据处理会有些繁琐。因此这里建议大家使用jsonlite中的fromJSON函数，它直接以嵌套列表的格式呈现数据，不建议大家使用RJSON中的fromJSON，它你会的到url多重自字符的错误。获取高德地图中温州各行政区域中心坐标的代码如下，你也可使用这个方法获取个行政区的json边界，方法类似，这里不再说明。  
+
+——抓取JSON数据(抓取温州各个行政区域的坐标)  
+library(jsonlite)  
+name='温州'  
+encoding_name <- iconv(enc2utf8(name),from='utf-8',to='ISO-8859-1',sub= "byte")%>%  
+str_replace_all('><','%')%>%str_sub(1,18)%>%str_to_upper()%>%  
+str_replace('<','%')  
+subdistrict_num=1  
+key_str='你的API'  
+url0 <- 'http://restapi.amap.com/v3/config/district?'  
+url <- paste0(url0,  
+'keywords=',encoding_name,'&',  
+'subdistrict=',subdistrict_num,'&',  
+'key=',key_str)  
+wz_center<- fromJSON(url)  
+wz_centers<-wz_center[['districts']][['districts']][[1]]  
+tail(wz_centers)  
+citycode adcode name center level districts  
+60577330326平阳县 120.565793,27.661918district NULL  
+70577330327苍南县 120.427619,27.519773district NULL  
+80577330328文成县 120.091498,27.786996district NULL  
+90577330329泰顺县 119.717649,27.556884district NULL  
+100577330381瑞安市 120.655148,27.778657district NULL  
+110577330382乐清市 120.983906,28.113725district NULL  
+
+——RSelenium模拟登录抓取数据
+使用RSelenium时，你首先要下载Selenium，chromedriver，直接百度，这里不再说明。下载之后要把Selenium放在你当前的工作目录，chromedriver放在chorm的目录下，win10用户Altt+x--cmd---'>'前面的即为工作目录，然后你还需要下载java，并把它放在你的环境变量中（注意区分用户环境还是系统环境），最后在命令窗口输入下面代码： java -jar selenium-server-standalone-3.4.0.jar   上面命令运行成功后我们就可已在R中使用RSelenium了，Selenium是一个模拟人点击网页的自动化测试模块，所有输入和点击的操作都可以用它实现。RSelenium的操作如下：  
+remoteDriver创建远程连接  
+open()打浏览器  
+navigate(url)打开网页  
+findElement、clickElement、sendKeysToElement三剑客进行一些列的选中、点击、输入操作  
+getElementAttribute("outerHTML")[[1]]转为HTML对象，然后使用rvest操作  
+library(RSelenium)     
+remDr <- remoteDriver(remoteServerAddr = "127.0.0.1",  
+port = 4444,  
+browserName = "chrome")   
+remDr$open() #打开浏览器  
+remDr$navigate('http://bbs.pinggu.org/forum-69-1.html')  
+step1 <- remDr$findElement(using= 'xpath',  
+"//*[@id='nv_forum']/div[6]/div[1]/div/div[4]/ul/li[3]/a")  
+step1$clickElement()  
+step21 <- remDr$findElement(using= 'xpath', '//*[@id="username"]')  
+step21$clickElement()  
+step21$sendKeysToElement(list(username ='用户名'))  
+step22 <- remDr$findElement(using= 'xpath', '//*[@id="password"]')  
+step22$clickElement()  
+step22$sendKeysToElement(list(password ='密码'))  
+step23 <- remDr$findElement(using= 'xpath', '/html/body/div[2]/div/div[2]/a')  
+step23$clickElement()   
+step3 <- remDr$findElement(using= "xpath","//*[@id='moderate']/table")  
+web <- step3$getElementAttribute("outerHTML")[[1]]%>%read_html()  
+dat3=data.frame(  
+标题=web%>%html_nodes('a.xst')%>%html_text(trim = T),  
+发布者=web%>%html_nodes('a.u')%>%html_text(trim = T),  
+发布时间=web%>%html_nodes('p>em>span')%>%html_text(trim = T),  
+最后回复者=web%>%html_nodes('p>em>a:nth-child(4)')%>%html_text(trim = T),  
+最后回复日期=web%>%html_nodes('p>em>a:nth-child(5)')%>%html_text(trim = T)  
+)
+tail(dat3)  
+
+首先下载phantomjs，然后把下面代码块复制到text，保存后更改后缀名为.js，若需要抓取其他js网页，直接更改open中的内容即可。注意你的到的js文件要和phantomjs.exe放在相同的工作目录下。  
+// NDC.js  
+var webPage = require('webpage');  
+var page = webPage.create();  
+var fs = require('fs');  
+var path = 'NDC.html'  
+page.open('http://data.stats.gov.cn/easyquery.htm?cn=E0101', function (status) {  
+var content = page.content;  
+fs.write(path,content,'w')  
+phantom.exit();  
+});  
+运行system("./phantomjs   NDC.js")后，会在你的工作目录下创建一个NDC.html文档，直接用read_html读就可以，然后获取所需的表格数据。  
+system("./phantomjs NDC.js")  
+web <- read_html("NDC.html")  
+dat4 <- (web%>%html_table())[[1]]  
+tail(dat4)  
+地区 2017年9月 2017年8月 2017年7月 2017年6月 2017年5月 2017年4月  
+26西藏自治区 101.7101.5101.4101.2101.2101.3  
+27陕西省 102.2102.7102.1102.0101.8101.1  
+28甘肃省 102.1101.8101.4101.3100.8100.4  
+29青海省 102.3102.3101.6101.6101.099.8  
+30宁夏回族自治区 101.4101.6101.3101.7101.8101.3  
+31新疆维吾尔自治区 102.8101.9101.7102.1102.1101.5  
+2017年3月 2017年2月 2017年1月 2016年12月 2016年11月 2016年10月  
+26102.0102.4102.8103.0102.9102.7  
+27100.099.7101.5101.2101.5101.5  
+28100.2100.3101.7101.4101.2101.1  
+29100.1100.5102.0101.9102.0102.1  
+30100.7100.3102.6102.5102.3102.4  
+31101.2101.5102.8102.3102.4101.9  
+濒危世界遗产可视化  
+加载程序包  
+library(stringr)   
+library(maps)  
+library(rvest)  
+
+——基于rvest包解析网页数据  
+eritage_parsed <- read_html("http://en.wikipedia.org/wiki/List_of_World_Heritage_in_Danger", encoding="UTF-8")#解析网页   
+tables <- html_table(heritage_parsed, fill = TRUE)#提取表格  
+head(tables)   
+danger_table <- tables[[2]]#提出第二个表格  
+danger_table <- danger_table[,c(1,3,4,6,7)]   
+colnames(danger_table) <- c("name","locn","crit","yins","yend")  
+
+——基于正则表达式清理提取数据   
+danger_table$crit <- ifelse(str_detect(danger_table$crit, "Natural") == TRUE, "nat", "cult") #整理crit列数据  
+danger_table$yins <- as.numeric(danger_table$yins)  
+yend_clean<-str_extract_all(danger_table$yend,"[0-9]{4}"   
+yend_clean1<-list()  
+for(i in 1:length(yend_clean)){  
+yend_clean1[[i]]<-yend_clean[[i]][length(yend_clean[[i]])]  
+}
+danger_table$yend<-as.numeric(unlist(yend_clean1))#处理yend列数据   
+reg_y <-"[/][ -]*[[:digit:]]*[.]*[[:digit:]]*[;]"  
+reg_x <-"[;][ -]*[[:digit:]]*[.]*[[:digit:]]*"  
+y_coords <- str_extract(danger_table$locn, reg_y）   
+y_coords <- as.numeric(str_sub(y_coords,3,-2))  
+x_coords <- str_extract(danger_table$locn, reg_x)  
+x_coords <- as.numeric(str_sub(x_coords,3,-2))   
+danger_table$x_coords<-x_coords  
+danger_table$y_coords<-y_coords  
+danger_table$locn<-NULL# 处理经纬度数据  
+
+——绘制濒危世界遗产数据空间分布图  
+pch <- ifelse(danger_table$crit == "nat", 19, 2)  
+col <- ifelse(danger_table$crit == "nat", "blue", "red")  
+map("world", col="darkgrey", lwd = 0.5, mar = c(0.1,0.1,0.1,0.1))  
+points(danger_table$x_coords, danger_table$y_coords, pch=pch, col=col)  
+box()#蓝色代表自然遗产 红色代表文化遗产  
+
+参考资料  
+rvest易上手爬虫  
+https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html  
+datacamp rvest爬虫教程  
+https://www.datacamp.com/community/tutorials/r-web-scraping-rvest  
+R爬虫小白实例教程 - 基于rvest包  
+https://www.jianshu.com/p/543ce849eef6  
+R语言：rvest包学习爬虫–笔记  
+https://www.jianshu.com/p/c092d57d275f  
+github地址  
+https://github.com/tidyverse/rvest  
+rvest穿越表单  
+https://github.com/tidyverse/rvest  
+rvest爬虫教程  
+http://www.ituring.com.cn/article/465317  
+正则表达式  
+http://yphuang.github.io/blog/2016/03/15/regular-expression-and-strings-processing-in-R/  
+rvest抓取图片  
+https://stat4701.github.io/edav/2015/04/02/rvest_tutorial/  
+jump_to()与follow_link()  
+https://rdrr.io/cran/rvest/man/jump_to.html  
+follow_link的使用  
+https://stackoverflow.com/questions/28863775/scraping-linked-html-webpages-by-looping-the-rvestfollow-link-function  
+批量生成变量  
+https://stats.stackexchange.com/questions/10838/produce-a-list-of-variable-name-in-a-for-loop-then-assign-values-to-them  
+xpath语法  
+https://cuiqingcai.com/2621.html  
+Sys.sleep  
+https://blog.csdn.net/xxzhangx/article/details/53650605  
+推迟时间  
+https://stackoverflow.com/questions/1174799/how-to-make-execution-pause-sleep-wait-for-x-seconds-in-r  
+R语言自然语言处理：中文分词  
+如何用R语言做词云图，以某部网络小说为例  
+Wordcloud2 introduction  
+https://cran.r-project.org/web/packages/wordcloud2/vignettes/wordcloud.html  
+R语言中文分词包jiebaR  
+http://blog.fens.me/r-word-jiebar/  
+R学习整理笔记（五）——用jiebaR包进行中文分词  
+https://zhuanlan.zhihu.com/p/35846130  
+分词 | jiebaR 常用函数   
+https://zhuanlan.zhihu.com/p/35581757 
+jiebaR 中文分词文档  
+http://qinwenfeng.com/jiebaR/  
+jiebaR github  
+https://github.com/qinwf/cidian  

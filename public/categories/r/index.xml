@@ -1,25 +1,141 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>R on A Hugo website</title>
+    <title>R on 鱼记苦瓜糖</title>
     <link>/categories/r/</link>
-    <description>Recent content in R on A Hugo website</description>
+    <description>Recent content in R on 鱼记苦瓜糖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 23 Mar 2019 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Wed, 15 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>世界线</title>
-      <link>/2019/03/23/%E4%B8%96%E7%95%8C%E7%BA%BF/</link>
-      <pubDate>Sat, 23 Mar 2019 21:13:14 -0500</pubDate>
+      <title>收藏向：R爬虫相关学习资料汇集</title>
+      <link>/2019/05/15/%E6%94%B6%E8%97%8F%E5%90%91-r%E7%88%AC%E8%99%AB%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%B1%87%E9%9B%86/</link>
+      <pubDate>Wed, 15 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/03/23/%E4%B8%96%E7%95%8C%E7%BA%BF/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
+      <guid>/2019/05/15/%E6%94%B6%E8%97%8F%E5%90%91-r%E7%88%AC%E8%99%AB%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%B1%87%E9%9B%86/</guid>
+      <description>常用包
+rvest
+xml2
+Rcurl
+httr
+rvest
+rvest包可能是R语言中数据抓取使用频率最高的包了，它的知名度和曝光度在知乎的数据分析相关帖子和回答中都很高。
+read_html()：下载网页,读取html文档或链接，可以是url链接，也可以是本地的html文件；
+html_nodes()：获得指定名称的网页元素、节点；
+html_text()：提取tags内文本,获得指定名称的网页元素、节点文本；
+html_attrs()：获得指定的网址；
+html_table() :提取tags内表格支持xpath
+如果tags层数较多，必须使用selectorGadget复制准确的路径。
+使用方式：开启SelectorGadget,然后鼠标选中位置，右击选择检查元素，光标移动到tags上。然后选择copy,选择selector或xpath 选项。
+[R爬虫案例]
+rvest 爬取ncbi文献列表
+豆瓣图书 Top 榜
+爬取高德地图
+使用XML抓取表格数据（爬取勇士队球员数据）
+使用rvest抓取网页数据（爬取关于特朗普的百度新闻）
+使用jsonlite抓取json格式数据（爬取高德地图温州各个行政区域的中心）
+使用RSelenium模拟登录抓取数据（模拟登录人大经济论坛爬取R语言板块数据）
+使用PhantomJS不登陆抓取数据（抓取国家数据各省的近13个月CPI）
+另外你也会学到一些数据处理的小技巧
+濒危世界遗产可视化
+爬取温度数据
+——rvest 爬取ncbi文献列表
+library(rvest)
+library(knitr)
+link &amp;lt;- ‘https://www.ncbi.nlm.nih.gov/pubmed/?term=disaster’
+web &amp;lt;- read_html(link)
+title &amp;lt;- web %&amp;gt;% html_nodes(‘div.rslt p.title a’) %&amp;gt;%html_text()
+author &amp;lt;- web %&amp;gt;% html_nodes(‘div.supp p.desc’) %&amp;gt;%html_text()
+journal &amp;lt;- web %&amp;gt;% html_nodes(‘div.supp p.details span’) %&amp;gt;%html_text()
+dat &amp;lt;- data.frame(Title = title, Author = author, Journal = journal)</description>
+    </item>
+    
+    <item>
+      <title>收藏向：Git学习资料</title>
+      <link>/2019/05/08/%E6%94%B6%E8%97%8F%E5%90%91-git%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/</link>
+      <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/08/%E6%94%B6%E8%97%8F%E5%90%91-git%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/</guid>
+      <description>git 学习资料用R语言的blogdown + hugo + netlify + github搭建静态博客系统，用rstudio专注于写作。
+（1）准备工作
+安装R(https://www.r-project.org/)
+安装rstudio(https://www.rstudio.com/)
+安装git(https://git-scm.com/)
+①rstudio配置
+Spareshare
+安装好上述软件后，需要对rstudio进行一下简单配置：
+Tools -&amp;gt; Global Options -&amp;gt; Sweave -&amp;gt; Weave Rnw files using:knitr
+Tools -&amp;gt; Global Options -&amp;gt; Sweave -&amp;gt; Typeset LaTex into PDF using:XeLaTeX
+这个是生成PDF文件用的，中文用户最好选择XeLaTeX
+Tools -&amp;gt; Global Options -&amp;gt; Git/SVN -&amp;gt; Git executable:
+安装好git后，打开这里应该就可以看到git的路径了
+Tools -&amp;gt; Global Options -&amp;gt; Packages -&amp;gt; CRAN mirror:
+建议选择一个距离你比较近的镜像，速度会快点。国内用户选择一个 China 的镜像。
+global……terminal——Git bash
+②安装blogdown和hugo
+安装blogdown：
+install.packages(‘blogdown’)
+安装hugo
+blogdown::install_hugo()</description>
+    </item>
+    
+    <item>
+      <title>嘿，想要分享一首歌给你听。</title>
+      <link>/2019/05/04/%E5%98%BF-%E6%83%B3%E8%A6%81%E5%88%86%E4%BA%AB%E4%B8%80%E9%A6%96%E6%AD%8C%E7%BB%99%E4%BD%A0%E5%90%AC/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/04/%E5%98%BF-%E6%83%B3%E8%A6%81%E5%88%86%E4%BA%AB%E4%B8%80%E9%A6%96%E6%AD%8C%E7%BB%99%E4%BD%A0%E5%90%AC/</guid>
+      <description>一首颜人中的《晚安》。也许你不了解这位歌手 我也刚刚知道 他是来自台湾的男歌手。
+抱歉限于个人水平不太懂怎么插入歌曲。
+沧桑又细腻的声线将故事娓娓道来
+起伏的音乐旋律和节拍撞人心弦
+建议在晚上独自一个人的时候安静地听
+嘘，这是在你的世界里属于你一个人的秘密花园。</description>
+    </item>
+    
+    <item>
+      <title>不是吃鸡少女的没有吃鸡的日常</title>
+      <link>/2019/05/03/%E4%B8%8D%E6%98%AF%E5%90%83%E9%B8%A1%E5%B0%91%E5%A5%B3%E7%9A%84%E6%B2%A1%E6%9C%89%E5%90%83%E9%B8%A1%E7%9A%84%E6%97%A5%E5%B8%B8/</link>
+      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/03/%E4%B8%8D%E6%98%AF%E5%90%83%E9%B8%A1%E5%B0%91%E5%A5%B3%E7%9A%84%E6%B2%A1%E6%9C%89%E5%90%83%E9%B8%A1%E7%9A%84%E6%97%A5%E5%B8%B8/</guid>
+      <description>5.3.没有出行计划的于同学。
+奔波两天 睡了五一假期的第一个懒觉
+菜鸟鱼立志在刺激战场杀出一条血路
+强烈的胜负欲熊熊燃烧！燃烧！——对不起我熬夜了。
+战绩惨不忍睹 哈哈哈慢慢来！不急！
+相信老鱼总有进阶到大佬的一天！
+just enjoy your colorful life.</description>
+    </item>
+    
+    <item>
+      <title>世界线漫展之旅</title>
+      <link>/2019/05/02/%E4%B8%96%E7%95%8C%E7%BA%BF%E6%BC%AB%E5%B1%95%E4%B9%8B%E6%97%85/</link>
+      <pubDate>Thu, 02 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/02/%E4%B8%96%E7%95%8C%E7%BA%BF%E6%BC%AB%E5%B1%95%E4%B9%8B%E6%97%85/</guid>
+      <description>托星星的福。第一次漫展。第二次汉服。
+见到银临了啊啊啊啊啊啊啊啊！
+现场的《裁梦为魂》《牵丝戏》啊啊啊
+差五米的签售啊啊啊错过了啊啊啊
+我恨 只能恨手机的谜之像素没有拍清楚
+自拍也是……你看鱼的脸它又大又圆（此处维护当事人肖像权不po了）
+合照被前面山一样的青年阻挡 但我们还是倔强地比了剪刀手
+你看我在勇敢地笑啊 你看我在勇敢地去挥手啊~</description>
+    </item>
+    
+    <item>
+      <title>U37&amp;IBOX</title>
+      <link>/2019/05/01/u37-ibox/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/01/u37-ibox/</guid>
+      <description>Chengdu 5.1 cloudy&amp;amp;rainy
+番茄、尖叫和小仙女的疲惫却美丽的一天。</description>
     </item>
     
   </channel>

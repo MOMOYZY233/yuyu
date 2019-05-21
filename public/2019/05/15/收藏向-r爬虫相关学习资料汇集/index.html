@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>收藏向：R爬虫相关学习资料汇集 - 鱼记苦瓜糖</title>
+<meta property="og:title" content="收藏向：R爬虫相关学习资料汇集 - 鱼记苦瓜糖">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://user.qzone.qq.com/798211544/infocenter">Qzone</a></li>
+    
+    <li><a href="https://www.zhihu.com/people/6995c3d508c9d5e692a95535821a8f2a">知乎</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">4 min read</span>
+    
+
+    <h1 class="article-title">收藏向：R爬虫相关学习资料汇集</h1>
+
+    
+    <span class="article-date">2019-05-15</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>常用包</p>
+<p>rvest<br />
+xml2<br />
+Rcurl<br />
+httr<br />
+rvest<br />
+rvest包可能是R语言中数据抓取使用频率最高的包了，它的知名度和曝光度在知乎的数据分析相关帖子和回答中都很高。<br />
+read_html()：下载网页,读取html文档或链接，可以是url链接，也可以是本地的html文件；<br />
+html_nodes()：获得指定名称的网页元素、节点；<br />
+html_text()：提取tags内文本,获得指定名称的网页元素、节点文本；<br />
+html_attrs()：获得指定的网址；<br />
+html_table() :提取tags内表格支持xpath<br />
+如果tags层数较多，必须使用selectorGadget复制准确的路径。<br />
+使用方式：开启SelectorGadget,然后鼠标选中位置，右击选择检查元素，光标移动到tags上。
+然后选择copy,选择selector或xpath 选项。</p>
+<p>[R爬虫案例]<br />
+rvest 爬取ncbi文献列表<br />
+豆瓣图书 Top 榜<br />
+爬取高德地图<br />
+使用XML抓取表格数据（爬取勇士队球员数据）<br />
+使用rvest抓取网页数据（爬取关于特朗普的百度新闻）<br />
+使用jsonlite抓取json格式数据（爬取高德地图温州各个行政区域的中心）<br />
+使用RSelenium模拟登录抓取数据（模拟登录人大经济论坛爬取R语言板块数据）<br />
+使用PhantomJS不登陆抓取数据（抓取国家数据各省的近13个月CPI）<br />
+另外你也会学到一些数据处理的小技巧<br />
+濒危世界遗产可视化<br />
+爬取温度数据</p>
+<p>——rvest 爬取ncbi文献列表<br />
+library(rvest)<br />
+library(knitr)<br />
+link &lt;- ‘<a href="https://www.ncbi.nlm.nih.gov/pubmed/?term=disaster" class="uri">https://www.ncbi.nlm.nih.gov/pubmed/?term=disaster</a>’<br />
+web &lt;- read_html(link)<br />
+title &lt;- web %&gt;% html_nodes(‘div.rslt p.title a’) %&gt;%html_text()<br />
+author &lt;- web %&gt;% html_nodes(‘div.supp p.desc’) %&gt;%html_text()<br />
+journal &lt;- web %&gt;% html_nodes(‘div.supp p.details span’) %&gt;%html_text()<br />
+dat &lt;- data.frame(Title = title, Author = author, Journal = journal)<br />
+kable(dat, format=“html”)<br />
+write.table(dat, ‘disaster_paper.txt’, sep="“, row.names = F, quote = F)<br />
+——豆瓣图书 Top 榜<br />
+library(”rvest“)<br />
+library(”xml2“) #加载用到的包<br />
+book &lt;-data.frame() #先建立一个空的数据框<br />
+for (i in 1:10){ #写一个循环，批量爬取10个页面的数据<br />
+url &lt;- paste0(”<a href="https://book.douban.com/top250?start=" class="uri">https://book.douban.com/top250?start=</a>",(i-1)*25) #paste0()用来连接字符串<br />
+web &lt;- read_html(url,encoding=“UTF-8”)</p>
+<p>name &lt;- web %&gt;% html_nodes(“tr&gt;td:nth-child(2)&gt;div.pl2&gt;a”) %&gt;% html_text() #爬取书名</p>
+<p>info &lt;-web %&gt;% html_nodes(“tr&gt;td:nth-child(2)&gt;p.pl”) %&gt;% html_text() #爬取图书具体信息，包括作者、出版社、出版时间等</p>
+<p>point&lt;-web %&gt;% html_nodes(“div.star.clearfix&gt;span.rating_nums”) %&gt;% html_text() %&gt;% as.numeric() #爬取评分</p>
+<p>value&lt;-web %&gt;% html_nodes(“div.star.clearfix&gt;span.pl”) %&gt;% html_text() %&gt;% as.character() #爬取评分人数</p>
+<p>bookinfo &lt;-data.frame(name,info,point,value)<br />
+book &lt;-rbind(book,bookinfo)<br />
+}</p>
+<p>write.csv(book,file=“douban_book.csv”) #保存数据<br />
+直接在excel里面对数据进行清洗，数据分列、去除冗余字符等，再将清洗完成的数据保存为csv格式。</p>
+<p>接下来就可以用ggplot2包来画图分析。</p>
+<p>library(“sqldf”)<br />
+library(“ggplot2”) #加载所用到的包<br />
+book &lt;- read.csv(“E:/doubanbook250.csv”) #打开文件<br />
+head（book,10）#查看数据前10行<br />
+看一下这些书作者的国籍分布。<br />
+ggplot(book,aes(x=nation)) + geom_bar() #画频数分布条形图<br />
+超过一半的书作者都是中国人，将国籍为“中”的数据筛选出去，看一下榜单上外国图书情况。<br />
+用subset（）筛选出作者不是中国人的图书，然后画一个频数分布条形图。<br />
+foreign_book &lt;- subset(book,nation !=“中”)<br />
+ggplot(foreign_book,aes(x=nation)) + geom_bar()<br />
+ggplot(sqldf(“select<em>from book where nation in (‘中’,‘英’ ,‘美’ ,‘日’,‘法’)")<br />
+,aes(x=factor(nation),y=rating)) + geom_boxplot()<br />
+rating_order &lt;- sqldf("select </em> from book order by rating desc”)<br />
+head(rating_order,10)<span class="math inline">\(name #查看评分最高的十本书 comments_order &lt;- sqldf(&quot;select * from book order by comments desc&quot;) head(comments_order,10)\)</span>name #查看评价人数最高的十本书<br />
+评价人数一定程度上也能说明图书目前的火热程度，筛选出评价人数最多的十本书，分别是《追风筝的人 》、《解忧杂货店》、《小王子》、《白夜行》、《围城》、《挪威的森林》、《三体: “地球往事”三部曲之一》、《嫌疑人X的献身》、《百年孤独》、《 看见 》。</p>
+<p>5<br />
+ggplot(book,aes(x=year)) + geom_freqpoly(binwidth = 1)<br />
+#出版年份频数多边形<br />
+press_group &lt;- sqldf(“select press,count(<em>) as press_num from book group by press ")<br />
+press_group_top &lt;- sqldf("select </em> from press_group where press_num &gt; 9”)
+press_group_top<br />
+author_top &lt;- sqldf(“select author,count(<em>) as author_num from book group by author")<br />
+sqldf("select </em> from author_top where author_num &gt; 3 order by author_num desc”)</p>
+<p>爬取高德地图<br />
+表格数据抓取<br />
+表格数据是最容易抓取的数据格式，直接使用XML包中的readHTMLTable函数，一页中的多个表格会使用列表的形式存储，在使用readHTNLTable的时候，header=T可以标记出所抓取的表格是列名，大多说情况抓过来表格的列名是乱码的，你可以使用rvest::repair_encoding对它们进行修复。爬取勇士队球员数据的代码如下：<br />
+抓取表格数据(抓取勇士队的球员数据)<br />
+library(XML)<br />
+url &lt;- ‘<a href="http://www.stat-nba.com/team/GSW.html" class="uri">http://www.stat-nba.com/team/GSW.html</a>’<br />
+dt1 &lt;- readHTMLTable(url,header = T)<br />
+names(dt1[[1]]) &lt;- rvest::repair_encoding(names(dt1[[1]]))<br />
+head(dt1[[1]])<br />
+球员 出场 首发 时间 投篮 命中 出手 三分 命中 出手 罚球 命中 出手 篮板<br />
+1凯文-杜兰特 121234.753.8% 8.916.646.7% 2.96.386.9% 4.45.17.5<br />
+2斯蒂芬-库里 131332.446.7% 7.516.238.8% 3.69.394.4% 6.56.84.7<br />
+3克莱-汤普森 131332.951.4% 8.516.547.1% 3.77.875.0% 0.50.63.8<br />
+4德雷蒙德-格林 131329.849.5% 3.57.035.7% 1.23.279.4% 2.12.67.9<br />
+5大卫-韦斯特 12011.368.6% 2.94.375.0% 0.30.380.0% 0.70.82.3<br />
+6尼克-杨 12013.044.1% 2.24.941.7% 1.74.060.0% 0.30.41.0<br />
+前场 后场 助攻 抢断 盖帽 失误 犯规 得分<br />
+10.86.84.90.62.43.42.325.2<br />
+20.54.26.71.80.22.62.225.2<br />
+30.53.42.70.70.81.82.221.1<br />
+41.16.86.71.01.33.23.010.2<br />
+51.01.31.30.71.41.41.66.8<br />
+60.30.80.90.80.10.41.16.3<br />
+rvest抓取网页数据<br />
+rvest是R用户使用率最多的爬虫包，它简洁地语法可以解决大部分的爬虫问题。它的使用方法比较固定1、使用read_html读取网页；2、通过CSS或Xpath获取所需要的节点并使用html_nodres读取节点内容；3、结合stringr包对数据进行清理。下面使用它爬取关于特朗普的百度新闻，具体代码如下：<br />
+library(rvest)<br />
+library(stringr)<br />
+library(rlist)<br />
+url &lt;- ‘<a href="http://news.baidu.com/ns?cl=2&amp;rn=20&amp;tn=news&amp;word=%E7%89%B9%E6%9C%97%E6%99%AE&amp;ie=utf-8" class="uri">http://news.baidu.com/ns?cl=2&amp;rn=20&amp;tn=news&amp;word=%E7%89%B9%E6%9C%97%E6%99%AE&amp;ie=utf-8</a>’<br />
+抓取网页<br />
+httr_web &lt;- read_html(url,encoding = ‘utf-8’)<br />
+抓取新闻标题<br />
+title &lt;- httr_web%&gt;%html_nodes(‘h3&gt;a’)%&gt;%html_text(trim = T)<br />
+抓取新闻发布者与日期<br />
+author &lt;- httr_web%&gt;%html_nodes(‘p.c-author’)%&gt;%html_text(trim = T)<br />
+candidate_date=Sys.Date()%&gt;%format(‘%Y年%m月%d日’)<br />
+fun &lt;- function(x){<br />
+re=if(length(x)==3){<br />
+re=c(x[1],candidate_date,x[length(x)])<br />
+}else{<br />
+re= x[-2]<br />
+}<br />
+re=data.frame(发布者=re[1],日期=re[2],时间=re[3])<br />
+return(re)<br />
+}<br />
+news_Trump &lt;- data.frame(标题=title ,<br />
+author%&gt;%str_split(‘s’)%&gt;%lapply(fun)%&gt;%list.stack())<br />
+tail(news_Trump)<br />
+标题 发布者 日期 时间<br />
+15特朗普访越车队驶过河内歌剧院 引众人围观 网易 2017年11月12日 6小时前<br />
+16特朗普:美俄就政治解决叙利亚问题达成一致协议 环球网 2017年11月12日 9小时前<br />
+17英媒:印度为迎接特朗普女儿 围捕乞丐暂住监狱 腾讯新闻 2017年11月12日 14小时前<br />
+18【独家】他此行的外交礼遇有点不一样 环球网 2017年11月12日 7小时前<br />
+19得分“A+”的不止有特朗普外孙女,更有这支军队 中国军网 2017年11月12日 6小时前<br />
+20多位专家谈中美关系:两国合作前景广阔 中国新闻网 2017年11月12日 2小时前</p>
+<p>——抓取json格式数据<br />
+json数据是一些列数据的嵌套，它的一般格式如下 {key1:var1:{key2:var2,…},…}, 这种格式的数据通常为网站的开放数据，可以申请目标网站的API，然后获取数据。获得API后，rvest可以很容易处理这种数据，但由于数据格式比较复杂，后期数据处理会有些繁琐。因此这里建议大家使用jsonlite中的fromJSON函数，它直接以嵌套列表的格式呈现数据，不建议大家使用RJSON中的fromJSON，它你会的到url多重自字符的错误。获取高德地图中温州各行政区域中心坐标的代码如下，你也可使用这个方法获取个行政区的json边界，方法类似，这里不再说明。</p>
+<p>——抓取JSON数据(抓取温州各个行政区域的坐标)<br />
+library(jsonlite)<br />
+name=‘温州’<br />
+encoding_name &lt;- iconv(enc2utf8(name),from=‘utf-8’,to=‘ISO-8859-1’,sub= “byte”)%&gt;%<br />
+str_replace_all(‘&gt;&lt;’,‘%’)%&gt;%str_sub(1,18)%&gt;%str_to_upper()%&gt;%<br />
+str_replace(‘&lt;’,‘%’)<br />
+subdistrict_num=1<br />
+key_str=‘你的API’<br />
+url0 &lt;- ‘<a href="http://restapi.amap.com/v3/config/district" class="uri">http://restapi.amap.com/v3/config/district</a>?’<br />
+url &lt;- paste0(url0,<br />
+‘keywords=’,encoding_name,‘&amp;’,<br />
+‘subdistrict=’,subdistrict_num,‘&amp;’,<br />
+‘key=’,key_str)<br />
+wz_center&lt;- fromJSON(url)<br />
+wz_centers&lt;-wz_center[[‘districts’]][[‘districts’]][[1]]<br />
+tail(wz_centers)<br />
+citycode adcode name center level districts<br />
+60577330326平阳县 120.565793,27.661918district NULL<br />
+70577330327苍南县 120.427619,27.519773district NULL<br />
+80577330328文成县 120.091498,27.786996district NULL<br />
+90577330329泰顺县 119.717649,27.556884district NULL<br />
+100577330381瑞安市 120.655148,27.778657district NULL<br />
+110577330382乐清市 120.983906,28.113725district NULL</p>
+<p>——RSelenium模拟登录抓取数据
+使用RSelenium时，你首先要下载Selenium，chromedriver，直接百度，这里不再说明。下载之后要把Selenium放在你当前的工作目录，chromedriver放在chorm的目录下，win10用户Altt+x–cmd—‘&gt;’前面的即为工作目录，然后你还需要下载java，并把它放在你的环境变量中（注意区分用户环境还是系统环境），最后在命令窗口输入下面代码： java -jar selenium-server-standalone-3.4.0.jar 上面命令运行成功后我们就可已在R中使用RSelenium了，Selenium是一个模拟人点击网页的自动化测试模块，所有输入和点击的操作都可以用它实现。RSelenium的操作如下：<br />
+remoteDriver创建远程连接<br />
+open()打浏览器<br />
+navigate(url)打开网页<br />
+findElement、clickElement、sendKeysToElement三剑客进行一些列的选中、点击、输入操作<br />
+getElementAttribute(“outerHTML”)[[1]]转为HTML对象，然后使用rvest操作<br />
+library(RSelenium)<br />
+remDr &lt;- remoteDriver(remoteServerAddr = “127.0.0.1”,<br />
+port = 4444,<br />
+browserName = “chrome”)<br />
+remDr<span class="math inline">\(open() #打开浏览器 remDr\)</span>navigate(’<a href="http://bbs.pinggu.org/forum-69-1.html" class="uri">http://bbs.pinggu.org/forum-69-1.html</a>’)<br />
+step1 &lt;- remDr<span class="math inline">\(findElement(using= &#39;xpath&#39;, &quot;//*[@id=&#39;nv_forum&#39;]/div[6]/div[1]/div/div[4]/ul/li[3]/a&quot;) step1\)</span>clickElement()<br />
+step21 &lt;- remDr<span class="math inline">\(findElement(using= &#39;xpath&#39;, &#39;//*[@id=&quot;username&quot;]&#39;) step21\)</span>clickElement()<br />
+step21<span class="math inline">\(sendKeysToElement(list(username =&#39;用户名&#39;)) step22 &lt;- remDr\)</span>findElement(using= ‘xpath’, ’//*<span class="citation">[@id="password"]</span>‘)<br />
+step22<span class="math inline">\(clickElement() step22\)</span>sendKeysToElement(list(password =’密码’))<br />
+step23 &lt;- remDr<span class="math inline">\(findElement(using= &#39;xpath&#39;, &#39;/html/body/div[2]/div/div[2]/a&#39;) step23\)</span>clickElement()<br />
+step3 &lt;- remDr<span class="math inline">\(findElement(using= &quot;xpath&quot;,&quot;//*[@id=&#39;moderate&#39;]/table&quot;) web &lt;- step3\)</span>getElementAttribute(“outerHTML”)[[1]]%&gt;%read_html()<br />
+dat3=data.frame(<br />
+标题=web%&gt;%html_nodes(‘a.xst’)%&gt;%html_text(trim = T),<br />
+发布者=web%&gt;%html_nodes(‘a.u’)%&gt;%html_text(trim = T),<br />
+发布时间=web%&gt;%html_nodes(‘p&gt;em&gt;span’)%&gt;%html_text(trim = T),<br />
+最后回复者=web%&gt;%html_nodes(‘p&gt;em&gt;a:nth-child(4)’)%&gt;%html_text(trim = T),<br />
+最后回复日期=web%&gt;%html_nodes(‘p&gt;em&gt;a:nth-child(5)’)%&gt;%html_text(trim = T)<br />
+)
+tail(dat3)</p>
+<p>首先下载phantomjs，然后把下面代码块复制到text，保存后更改后缀名为.js，若需要抓取其他js网页，直接更改open中的内容即可。注意你的到的js文件要和phantomjs.exe放在相同的工作目录下。<br />
+// NDC.js<br />
+var webPage = require(‘webpage’);<br />
+var page = webPage.create();<br />
+var fs = require(‘fs’);<br />
+var path = ‘NDC.html’<br />
+page.open(‘<a href="http://data.stats.gov.cn/easyquery.htm?cn=E0101" class="uri">http://data.stats.gov.cn/easyquery.htm?cn=E0101</a>’, function (status) {<br />
+var content = page.content;<br />
+fs.write(path,content,‘w’)<br />
+phantom.exit();<br />
+});<br />
+运行system(“./phantomjs NDC.js”)后，会在你的工作目录下创建一个NDC.html文档，直接用read_html读就可以，然后获取所需的表格数据。<br />
+system(“./phantomjs NDC.js”)<br />
+web &lt;- read_html(“NDC.html”)<br />
+dat4 &lt;- (web%&gt;%html_table())[[1]]<br />
+tail(dat4)<br />
+地区 2017年9月 2017年8月 2017年7月 2017年6月 2017年5月 2017年4月<br />
+26西藏自治区 101.7101.5101.4101.2101.2101.3<br />
+27陕西省 102.2102.7102.1102.0101.8101.1<br />
+28甘肃省 102.1101.8101.4101.3100.8100.4<br />
+29青海省 102.3102.3101.6101.6101.099.8<br />
+30宁夏回族自治区 101.4101.6101.3101.7101.8101.3<br />
+31新疆维吾尔自治区 102.8101.9101.7102.1102.1101.5<br />
+2017年3月 2017年2月 2017年1月 2016年12月 2016年11月 2016年10月<br />
+26102.0102.4102.8103.0102.9102.7<br />
+27100.099.7101.5101.2101.5101.5<br />
+28100.2100.3101.7101.4101.2101.1<br />
+29100.1100.5102.0101.9102.0102.1<br />
+30100.7100.3102.6102.5102.3102.4<br />
+31101.2101.5102.8102.3102.4101.9<br />
+濒危世界遗产可视化<br />
+加载程序包<br />
+library(stringr)<br />
+library(maps)<br />
+library(rvest)</p>
+<p>——基于rvest包解析网页数据<br />
+eritage_parsed &lt;- read_html(“<a href="http://en.wikipedia.org/wiki/List_of_World_Heritage_in_Danger" class="uri">http://en.wikipedia.org/wiki/List_of_World_Heritage_in_Danger</a>”, encoding=“UTF-8”)#解析网页<br />
+tables &lt;- html_table(heritage_parsed, fill = TRUE)#提取表格<br />
+head(tables)<br />
+danger_table &lt;- tables[[2]]#提出第二个表格<br />
+danger_table &lt;- danger_table[,c(1,3,4,6,7)]<br />
+colnames(danger_table) &lt;- c(“name”,“locn”,“crit”,“yins”,“yend”)</p>
+<p>——基于正则表达式清理提取数据<br />
+danger_table<span class="math inline">\(crit &lt;- ifelse(str_detect(danger_table\)</span>crit, “Natural”) == TRUE, “nat”, “cult”) #整理crit列数据<br />
+danger_table<span class="math inline">\(yins &lt;- as.numeric(danger_table\)</span>yins)<br />
+yend_clean&lt;-str_extract_all(danger_table<span class="math inline">\(yend,&quot;[0-9]{4}&quot; yend_clean1&lt;-list() for(i in 1:length(yend_clean)){ yend_clean1[[i]]&lt;-yend_clean[[i]][length(yend_clean[[i]])] } danger_table\)</span>yend&lt;-as.numeric(unlist(yend_clean1))#处理yend列数据<br />
+reg_y &lt;-“[/][ -]<em>[[:digit:]]</em>[.]<em>[[:digit:]]</em>[;]”<br />
+reg_x &lt;-“[;][ -]<em>[[:digit:]]</em>[.]<em>[[:digit:]]</em>”<br />
+y_coords &lt;- str_extract(danger_table<span class="math inline">\(locn, reg_y） y_coords &lt;- as.numeric(str_sub(y_coords,3,-2)) x_coords &lt;- str_extract(danger_table\)</span>locn, reg_x)<br />
+x_coords &lt;- as.numeric(str_sub(x_coords,3,-2))<br />
+danger_table<span class="math inline">\(x_coords&lt;-x_coords danger_table\)</span>y_coords&lt;-y_coords<br />
+danger_table$locn&lt;-NULL# 处理经纬度数据</p>
+<p>——绘制濒危世界遗产数据空间分布图<br />
+pch &lt;- ifelse(danger_table<span class="math inline">\(crit == &quot;nat&quot;, 19, 2) col &lt;- ifelse(danger_table\)</span>crit == “nat”, “blue”, “red”)<br />
+map(“world”, col=“darkgrey”, lwd = 0.5, mar = c(0.1,0.1,0.1,0.1))<br />
+points(danger_table<span class="math inline">\(x_coords, danger_table\)</span>y_coords, pch=pch, col=col)<br />
+box()#蓝色代表自然遗产 红色代表文化遗产</p>
+<p>参考资料<br />
+rvest易上手爬虫<br />
+<a href="https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html" class="uri">https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html</a><br />
+datacamp rvest爬虫教程<br />
+<a href="https://www.datacamp.com/community/tutorials/r-web-scraping-rvest" class="uri">https://www.datacamp.com/community/tutorials/r-web-scraping-rvest</a><br />
+R爬虫小白实例教程 - 基于rvest包<br />
+<a href="https://www.jianshu.com/p/543ce849eef6" class="uri">https://www.jianshu.com/p/543ce849eef6</a><br />
+R语言：rvest包学习爬虫–笔记<br />
+<a href="https://www.jianshu.com/p/c092d57d275f" class="uri">https://www.jianshu.com/p/c092d57d275f</a><br />
+github地址<br />
+<a href="https://github.com/tidyverse/rvest" class="uri">https://github.com/tidyverse/rvest</a><br />
+rvest穿越表单<br />
+<a href="https://github.com/tidyverse/rvest" class="uri">https://github.com/tidyverse/rvest</a><br />
+rvest爬虫教程<br />
+<a href="http://www.ituring.com.cn/article/465317" class="uri">http://www.ituring.com.cn/article/465317</a><br />
+正则表达式<br />
+<a href="http://yphuang.github.io/blog/2016/03/15/regular-expression-and-strings-processing-in-R/" class="uri">http://yphuang.github.io/blog/2016/03/15/regular-expression-and-strings-processing-in-R/</a><br />
+rvest抓取图片<br />
+<a href="https://stat4701.github.io/edav/2015/04/02/rvest_tutorial/" class="uri">https://stat4701.github.io/edav/2015/04/02/rvest_tutorial/</a><br />
+jump_to()与follow_link()<br />
+<a href="https://rdrr.io/cran/rvest/man/jump_to.html" class="uri">https://rdrr.io/cran/rvest/man/jump_to.html</a><br />
+follow_link的使用<br />
+<a href="https://stackoverflow.com/questions/28863775/scraping-linked-html-webpages-by-looping-the-rvestfollow-link-function" class="uri">https://stackoverflow.com/questions/28863775/scraping-linked-html-webpages-by-looping-the-rvestfollow-link-function</a><br />
+批量生成变量<br />
+<a href="https://stats.stackexchange.com/questions/10838/produce-a-list-of-variable-name-in-a-for-loop-then-assign-values-to-them" class="uri">https://stats.stackexchange.com/questions/10838/produce-a-list-of-variable-name-in-a-for-loop-then-assign-values-to-them</a><br />
+xpath语法<br />
+<a href="https://cuiqingcai.com/2621.html" class="uri">https://cuiqingcai.com/2621.html</a><br />
+Sys.sleep<br />
+<a href="https://blog.csdn.net/xxzhangx/article/details/53650605" class="uri">https://blog.csdn.net/xxzhangx/article/details/53650605</a><br />
+推迟时间<br />
+<a href="https://stackoverflow.com/questions/1174799/how-to-make-execution-pause-sleep-wait-for-x-seconds-in-r" class="uri">https://stackoverflow.com/questions/1174799/how-to-make-execution-pause-sleep-wait-for-x-seconds-in-r</a><br />
+R语言自然语言处理：中文分词<br />
+如何用R语言做词云图，以某部网络小说为例<br />
+Wordcloud2 introduction<br />
+<a href="https://cran.r-project.org/web/packages/wordcloud2/vignettes/wordcloud.html" class="uri">https://cran.r-project.org/web/packages/wordcloud2/vignettes/wordcloud.html</a><br />
+R语言中文分词包jiebaR<br />
+<a href="http://blog.fens.me/r-word-jiebar/" class="uri">http://blog.fens.me/r-word-jiebar/</a><br />
+R学习整理笔记（五）——用jiebaR包进行中文分词<br />
+<a href="https://zhuanlan.zhihu.com/p/35846130" class="uri">https://zhuanlan.zhihu.com/p/35846130</a><br />
+分词 | jiebaR 常用函数<br />
+<a href="https://zhuanlan.zhihu.com/p/35581757" class="uri">https://zhuanlan.zhihu.com/p/35581757</a>
+jiebaR 中文分词文档<br />
+<a href="http://qinwenfeng.com/jiebaR/" class="uri">http://qinwenfeng.com/jiebaR/</a><br />
+jiebaR github<br />
+<a href="https://github.com/qinwf/cidian" class="uri">https://github.com/qinwf/cidian</a></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

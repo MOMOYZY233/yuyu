@@ -1,0 +1,14 @@
+---
+title: U37&IBOX
+author: 鱼记苦瓜糖
+date: '2019-05-01'
+slug: u37-ibox
+categories:
+  - R
+tags: []
+---
+Chengdu 5.1 cloudy&rainy  
+番茄、尖叫和小仙女的疲惫却美丽的一天。
+![u1](./content/post/u1.jpg)  
+![u2](./content/post/u2.jpg)  
+![u3](./content/post/u3.jpg)  

@@ -1,0 +1,127 @@
+---
+title: 收藏向：Git学习资料
+author: 鱼记苦瓜糖
+date: '2019-05-08'
+slug: 收藏向-git学习资料
+categories:
+  - R
+tags: []
+---
+git 学习资料
+用R语言的blogdown + hugo + netlify + github搭建静态博客系统，用rstudio专注于写作。  
+（1）准备工作  
+安装R(https://www.r-project.org/)   
+安装rstudio(https://www.rstudio.com/)  
+安装git(https://git-scm.com/)  
+①rstudio配置    
+Spareshare  
+安装好上述软件后，需要对rstudio进行一下简单配置：  
+Tools -> Global Options -> Sweave -> Weave Rnw files using:knitr  
+Tools -> Global Options -> Sweave -> Typeset LaTex into PDF using:XeLaTeX  
+这个是生成PDF文件用的，中文用户最好选择XeLaTeX  
+Tools -> Global Options -> Git/SVN -> Git executable:  
+安装好git后，打开这里应该就可以看到git的路径了   
+Tools -> Global Options -> Packages -> CRAN mirror:  
+建议选择一个距离你比较近的镜像，速度会快点。国内用户选择一个 China 的镜像。  
+global……terminal——Git bash  
+②安装blogdown和hugo  
+安装blogdown：  
+install.packages('blogdown')  
+安装hugo  
+blogdown::install_hugo()  
+如果安装hugo的时候出现下面的错误(貌似有同志也有这个问题)：  
+> blogdown::install_hugo()  
+The latest hugo version is 0.32.4  
+trying URL 'https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip'  
+trying URL 'https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip'  
+Error in download.file(url, ..., method = method, extra = extra) : cannot open URL 'https://github.com/gohugoio/hugo/releases/download/v0.32.4/hugo_0.32.4_Windows-64bit.zip'  
+In addition: Warning messages:  
+1: In download.file(url, ..., method = method, extra = extra) : InternetOpenUrl failed: ''  
+2: In download.file(url, ..., method = method, extra = extra) : InternetOpenUrl failed: ''  
+这个时候就直接安装开发版，就可以解决：  
+install.packages("devtools")  
+devtools::install_github("rstudio/blogdown")  
+如果安装了开发版的blogdown，还没有搞定，那么就把错误信息中的链接复制到浏览器直接下载，把文件解压发现里面就只有一个文件，Yihui选择hugo就是因为hugo只有一个文件，够简单，至于为什么我会知道Yihui选择hugo的原因？因为我读了blogdown故事(https://yihui.name/en/2017/12/blogdown-book/)。  
+把解压好的hugo.exe文件放在d:/根目录下，然后输入下面代码安装hugo：  
+注意这里是三个冒号  
+blogdown:::install_hugo_bin("d:/hugo.exe")  
+安装成功。  
+③github  
+用github创建repository，点击Create   repository就可以创建好用于保存网站的repository。  
+④关于修改主题  
+如果你想修改主题，可以到https://themes.gohugo.io/找主题修改。  
+关于修改主题的非技术TIPS，可以看看下面两段话，引用自Yihui的blogdown使用文档**1.6 Other themes最下面引用的一段话：  
+If you choose to dig a rather deep hole, someday you will have no choice but keep on digging, even with tears. -— Liyun Chen13  
+Yihui是这样说的：  
+Another thing to keep in mind is that the more effort you make in a complicated theme, the more difficult it is to switch to other themes in the future, because you may have customized a lot of things that are not straightforward to port to another theme.  
+所以呢，可以先把hugo官网上面的主题都浏览一下，看看哪个合眼缘，挑好再改吧。  
+学习怎么修改主题的另外一个好去处是hugo-xmin的pull   request。如果你有好的改进，也可以在这里提交pull request让别人学习。  
+
+
+
+过程回顾：  
+github SSH KEY。（提前注意SSH KEY不要密码）  
+建仓库。仓库SSH地址，复制粘贴到Rstudio file——new   project——version——git——URL，名字仓库名  
+钥匙就是绿色了。  
+
+blogdown::new_site()  
+git config --global user.name yourname  # "你的名字或昵称"  
+git config --global user.email youremail@xxx.com # "你的邮箱"  
+git add .  
+git commit -m"MOMOYZY233"  
+git push.  
+blogdown::serve_site()  
+new post  
+然后push~  
+
+参考资料   
+1.	blogdown: Creating Websites with R   Markdown(https://bookdown.org/yihui/blogdown/)  
+1.	Up and running with   blogdown(https://alison.rbind.io/post/up-and-running-with-blogdown/)  
+1.	本站是如何建成的：R blogdown   简介(http://xuer.dapengde.com/post/hugo-blogdown/)  
+1.	R blogdown 科研网站的公式和参考文献(http://www.pzhao.org/zh/post/rblogdown-bib/)  
+1.	如何在 R markdown 里输出 r pi   并前后加上小撇`(http://www.pzhao.org/zh/post/backticks-in-rmd/)  
+1.	Enable Code folding(https://github.com/statnmap/hugo-statnmap-theme/pull/1/filesEnable Code folding(statnmap/hugo statnmap theme#1/files)  
+1.	Making a Website Using blogdown, hugo, and GitHub   pages(https://proquestionasker.github.io/blog/Making_Site/)  
+1.	Getting Started With   blogdown(https://www.znmeb.mobi/2017/05/12/getting-started-with-blogdown/)  
+1.	rbind support(https://support.rbind.io/)  
+作者：钟浩光  
+编辑：陈新宇  
+审稿：何通 赵鹏  
+
+模式一：多人，纯在线模式  
+高级版的腾讯文档 你不用学git，不用学fork，不用学任何东西。只要是你项目组授权成员，你就可以在线编辑文档。  
+模式二： 多人，Fork经典模式  
+先fork到自己  独立编辑  pull request  合并到一起  
+模式三：一人多个终端，一个账户  
+用One Drive 托管文件夹 各自建立ssh通道  定义本机的用户名和邮件  然后就可以操作git了  
+模式四 ： 一人多个终端，多个账户  一人当做多人用   纯git操作  
+首先，你需要执行下面两条命令，作为git的基础配置，作用是告诉git你是谁，你输入的信息将出现在你创建的提交中。  
+
+    git config --global user.name yourname  # "你的名字或昵称"  
+    git config --global user.email youremail@xxx.com # "你的邮箱"  
+
+git作为支持分布式版本管理的工具，它管理的库（repository）分为本地库、远程库。  
+
+这里我们把 add(暂存)、提交(commit)、推送(push)，放到一起说，因为每次上传代码都需要执行这三步（关于冲突处理、分支合并等以后用到了再研究，本文只说基础部分）。  
+
+    git add     # 加入到暂存区  
+    git commit  # 提交到本地库  
+    git push    # 发送给远程库  
+
+管理员：可以在线编辑文档  
+非管理员：不可编辑  
+PUSH：都不可  
+
+参考：git学习资源  
+progit中文版：https://gitee.com/progit/  
+廖雪峰-Git教程：https://www.liaoxuefeng.com/wiki/896043488029600  
+菜鸟教程：https://www.runoob.com/git/git-tutorial.html  
+git常规命令练习：https://learngitbranching.js.org/  
+git的资料整理：https://github.com/xirong/my-git  
+GitHub 漫游指南：https://github.com/phodal/github  
+GitHub秘籍：https://github.com/tiimgreen/github-cheat-sheet/blob/master/README.zh-cn.md  
+动画方式练习：git:http://onlywei.github.io/explain-git-with-d3/  
+版本管理工具介绍—Git篇：http://www.imooc.com/learn/208  
+版本控制入门 – 搬进Github：http://www.imooc.com/learn/390  
+Git动画演示：https://learngitbranching.js.org/?demo  
+

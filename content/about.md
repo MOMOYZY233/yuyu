@@ -1,6 +1,6 @@
 ---
 date: "2016-05-05T21:48:51-07:00"
-title: About
+title: 关于鱼记苦瓜糖
 ---
-
-This is a "hello world" example website for the [**blogdown**](https://github.com/rstudio/blogdown) package. The theme was forked from [@jrutheiser/hugo-lithium-theme](https://github.com/jrutheiser/hugo-lithium-theme) and modified by [Yihui Xie](https://github.com/yihui/hugo-lithium).
+鱼记苦瓜糖，江湖人称“啊拉波娃萨米耶西诺”。生于90年代的尾巴，性别老阿姨。家在燕赵大地，是学在南方的北方人。就读于蜀地某知名郊区双流一双一流学校。喜欢唱跳rap篮球（错了），喜欢音乐、读书、游戏以及发呆。画风时而正经时清奇，擅长山路八百弯的内心活动，思维基本不走寻常路。性格温和善良，偶尔忧郁暴躁（多见于赶作业期间）。来川两年，逐渐爱上这里。
+最后，欢迎打开我的网站，很高兴你愿意了解我，认识你我也开心极了。
