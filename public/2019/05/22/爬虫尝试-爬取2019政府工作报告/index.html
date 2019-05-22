@@ -80,6 +80,26 @@
 <script src="/rmarkdown-libs/wordcloud2-binding/wordcloud2.js"></script>
 
 
+<p>步骤：<br />
+①console安装包<br />
+②new post insert——R<br />
+library(xml2)<br />
+library(rvest)<br />
+url&lt;-‘<a href="http://www.gov.cn/premier/2019-03/16/content_5374314.htm" class="uri">http://www.gov.cn/premier/2019-03/16/content_5374314.htm</a>’<br />
+web&lt;-read_html(url,encoding=“utf-8”)<br />
+position&lt;-web %&gt;% html_nodes(“div.pages_content”) %&gt;% html_text()<br />
+print(position)<br />
+library(jiebaRD)<br />
+library(jiebaR)<br />
+engine_s&lt;-worker(stop_word = “D:\stopwords.txt”)<br />
+seg&lt;-segment(position,engine_s)<br />
+f&lt;-freq(seg)<br />
+f&lt;-f[order(f[2],decreasing=TRUE),]<br />
+print(f)<br />
+library(yaml)<br />
+library(wordcloud2)<br />
+f1&lt;-f[1:150,]<br />
+wordcloud2(f1, size = 0.8 ,shape=‘star’)</p>
 <pre class="r"><code>library(rvest)</code></pre>
 <pre><code>## 载入需要的程辑包：xml2</code></pre>
 <pre class="r"><code>url&lt;-&#39;http://www.gov.cn/premier/2019-03/16/content_5374314.htm&#39;
