@@ -61,8 +61,10 @@ Another thing to keep in mind is that the more effort you make in a complicated 
 
 过程回顾：  
 github SSH KEY。（提前注意SSH KEY不要密码）  
-建仓库。仓库SSH地址，复制粘贴到Rstudio file——new   project——version——git——URL，名字仓库名  
-钥匙就是绿色了。  
+建仓库。仓库SSH地址，复制粘贴到Rstudio file——new  project——version——git——URL，名字仓库名  
+钥匙就是绿色了。 
+
+netlify里面new site——github——选择仓库——deploy等操作完成连接部署  
 
 blogdown::new_site()  
 git config --global user.name yourname  # "你的名字或昵称"  
