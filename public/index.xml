@@ -6,13 +6,22 @@
     <description>Recent content on 鱼记苦瓜糖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 22 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>爬虫尝试：爬取2019政府工作报告</title>
+      <title>爬虫尝试2.0：爬取关于特朗普的新闻网页</title>
+      <link>/2019/05/23/%E7%88%AC%E8%99%AB%E5%B0%9D%E8%AF%952-0-%E7%88%AC%E5%8F%96%E5%85%B3%E4%BA%8E%E7%89%B9%E6%9C%97%E6%99%AE%E7%9A%84%E6%96%B0%E9%97%BB%E7%BD%91%E9%A1%B5/</link>
+      <pubDate>Thu, 23 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/23/%E7%88%AC%E8%99%AB%E5%B0%9D%E8%AF%952-0-%E7%88%AC%E5%8F%96%E5%85%B3%E4%BA%8E%E7%89%B9%E6%9C%97%E6%99%AE%E7%9A%84%E6%96%B0%E9%97%BB%E7%BD%91%E9%A1%B5/</guid>
+      <description>library(rvest)## 载入需要的程辑包：xml2library(stringr)library(rlist)url &amp;lt;- &amp;#39;http://news.baidu.com/ns?cl=2&amp;amp;rn=20&amp;amp;tn=news&amp;amp;word=%E7%89%B9%E6%9C%97%E6%99%AE&amp;amp;ie=utf-8&amp;#39;#抓取网页httr_web &amp;lt;- read_html(url,encoding = &amp;#39;utf-8&amp;#39;)#抓取新闻标题title &amp;lt;- httr_web%&amp;gt;%html_nodes(&amp;#39;h3&amp;gt;a&amp;#39;)%&amp;gt;%html_text(trim = T)#抓取新闻发布者与日期author &amp;lt;- httr_web%&amp;gt;%html_nodes(&amp;#39;p.c-author&amp;#39;)%&amp;gt;%html_text(trim = T)candidate_date=Sys.Date()%&amp;gt;%format(&amp;#39;%Y年%m月%d日&amp;#39;)fun &amp;lt;- function(x){re=if(length(x)==3){re=c(x[1],candidate_date,x[length(x)])}else{re= x[-2]}re=data.frame(publisher=re[1],date=re[2],time=re[3])return(re)}news_Trump &amp;lt;- data.frame(title=title ,author%&amp;gt;%str_split(&amp;#39;s&amp;#39;)%&amp;gt;%lapply(fun)%&amp;gt;%list.stack())tail(news_Trump)## title## 15 特朗普拒绝上交纳税表 或导致一场法庭之战## 16 特朗普提名新一任美国空军部长## 17 特朗普连任之路艰难!民调:5成以上美国人不会再选他## 18 5G通信恩仇录:任正非和特朗普 两个七旬老人的宿命之战## 19 美“网红”女议员呼吁启动对特朗普弹劾程序## 20 特朗普这回“闯大祸”了,谷歌刚对华为下狠手,全球用户可不干了## publisher## 15 中宏网&amp;lt;U+00A0&amp;gt;&amp;lt;U+00A0&amp;gt; \t\t\t\t\n\t\t\t\t\t\t12小时前## 16 海南日报&amp;lt;U+00A0&amp;gt;&amp;lt;U+00A0&amp;gt; \t\t\t\t\n\t\t\t\t\t\t16小时前## 17 中国日报&amp;lt;U+00A0&amp;gt;&amp;lt;U+00A0&amp;gt; \t\t\t\t\n\t\t\t\t\t\t13小时前## 18 凤凰网&amp;lt;U+00A0&amp;gt;&amp;lt;U+00A0&amp;gt; \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 22:01## 19 新浪&amp;lt;U+00A0&amp;gt;&amp;lt;U+00A0&amp;gt; \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 22:00## 20 中华网军事频道&amp;lt;U+00A0&amp;gt;&amp;lt;U+00A0&amp;gt; \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 21:31## date time## 15 &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;## 16 &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;## 17 &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;## 18 &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;## 19 &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;## 20 &amp;lt;NA&amp;gt; &amp;lt;NA&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>爬虫尝试1.0：爬取2019政府工作报告</title>
       <link>/2019/05/22/%E7%88%AC%E8%99%AB%E5%B0%9D%E8%AF%95-%E7%88%AC%E5%8F%962019%E6%94%BF%E5%BA%9C%E5%B7%A5%E4%BD%9C%E6%8A%A5%E5%91%8A/</link>
       <pubDate>Wed, 22 May 2019 00:00:00 +0000</pubDate>
       

@@ -1,0 +1,57 @@
+---
+title: 爬虫尝试2.0：爬取关于特朗普的新闻网页
+author: 鱼记苦瓜糖
+date: '2019-05-23'
+slug: 爬虫尝试2-0-爬取关于特朗普的新闻网页
+categories:
+  - R
+tags: []
+---
+
+
+
+<pre class="r"><code>library(rvest)</code></pre>
+<pre><code>## 载入需要的程辑包：xml2</code></pre>
+<pre class="r"><code>library(stringr)
+library(rlist)
+url &lt;- &#39;http://news.baidu.com/ns?cl=2&amp;rn=20&amp;tn=news&amp;word=%E7%89%B9%E6%9C%97%E6%99%AE&amp;ie=utf-8&#39;
+#抓取网页
+httr_web &lt;- read_html(url,encoding = &#39;utf-8&#39;)
+#抓取新闻标题
+title &lt;- httr_web%&gt;%html_nodes(&#39;h3&gt;a&#39;)%&gt;%html_text(trim = T)
+#抓取新闻发布者与日期
+author &lt;- httr_web%&gt;%html_nodes(&#39;p.c-author&#39;)%&gt;%html_text(trim = T)
+candidate_date=Sys.Date()%&gt;%format(&#39;%Y年%m月%d日&#39;)
+fun &lt;- function(x){
+re=if(length(x)==3){
+re=c(x[1],candidate_date,x[length(x)])
+}else{
+re= x[-2]
+}
+re=data.frame(publisher=re[1],date=re[2],time=re[3])
+return(re)
+}
+news_Trump &lt;- data.frame(title=title ,
+author%&gt;%str_split(&#39;s&#39;)%&gt;%lapply(fun)%&gt;%list.stack())
+tail(news_Trump)</code></pre>
+<pre><code>##                                                       title
+## 15                  特朗普拒绝上交纳税表 或导致一场法庭之战
+## 16                             特朗普提名新一任美国空军部长
+## 17          特朗普连任之路艰难!民调:5成以上美国人不会再选他
+## 18       5G通信恩仇录:任正非和特朗普 两个七旬老人的宿命之战
+## 19                   美“网红”女议员呼吁启动对特朗普弹劾程序
+## 20 特朗普这回“闯大祸”了,谷歌刚对华为下狠手,全球用户可不干了
+##                                                                               publisher
+## 15                     中宏网&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t12小时前
+## 16                   海南日报&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t16小时前
+## 17                   中国日报&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t13小时前
+## 18         凤凰网&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 22:01
+## 19           新浪&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 22:00
+## 20 中华网军事频道&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 21:31
+##    date time
+## 15 &lt;NA&gt; &lt;NA&gt;
+## 16 &lt;NA&gt; &lt;NA&gt;
+## 17 &lt;NA&gt; &lt;NA&gt;
+## 18 &lt;NA&gt; &lt;NA&gt;
+## 19 &lt;NA&gt; &lt;NA&gt;
+## 20 &lt;NA&gt; &lt;NA&gt;</code></pre>

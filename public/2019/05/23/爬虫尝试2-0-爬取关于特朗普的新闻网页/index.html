@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>爬虫尝试2.0：爬取关于特朗普的新闻网页 - 鱼记苦瓜糖</title>
+<meta property="og:title" content="爬虫尝试2.0：爬取关于特朗普的新闻网页 - 鱼记苦瓜糖">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://user.qzone.qq.com/798211544/infocenter">Qzone</a></li>
+    
+    <li><a href="https://www.zhihu.com/people/6995c3d508c9d5e692a95535821a8f2a">知乎</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">爬虫尝试2.0：爬取关于特朗普的新闻网页</h1>
+
+    
+    <span class="article-date">2019-05-23</span>
+    
+
+    <div class="article-content">
+      
+
+
+<pre class="r"><code>library(rvest)</code></pre>
+<pre><code>## 载入需要的程辑包：xml2</code></pre>
+<pre class="r"><code>library(stringr)
+library(rlist)
+url &lt;- &#39;http://news.baidu.com/ns?cl=2&amp;rn=20&amp;tn=news&amp;word=%E7%89%B9%E6%9C%97%E6%99%AE&amp;ie=utf-8&#39;
+#抓取网页
+httr_web &lt;- read_html(url,encoding = &#39;utf-8&#39;)
+#抓取新闻标题
+title &lt;- httr_web%&gt;%html_nodes(&#39;h3&gt;a&#39;)%&gt;%html_text(trim = T)
+#抓取新闻发布者与日期
+author &lt;- httr_web%&gt;%html_nodes(&#39;p.c-author&#39;)%&gt;%html_text(trim = T)
+candidate_date=Sys.Date()%&gt;%format(&#39;%Y年%m月%d日&#39;)
+fun &lt;- function(x){
+re=if(length(x)==3){
+re=c(x[1],candidate_date,x[length(x)])
+}else{
+re= x[-2]
+}
+re=data.frame(publisher=re[1],date=re[2],time=re[3])
+return(re)
+}
+news_Trump &lt;- data.frame(title=title ,
+author%&gt;%str_split(&#39;s&#39;)%&gt;%lapply(fun)%&gt;%list.stack())
+tail(news_Trump)</code></pre>
+<pre><code>##                                                       title
+## 15                  特朗普拒绝上交纳税表 或导致一场法庭之战
+## 16                             特朗普提名新一任美国空军部长
+## 17          特朗普连任之路艰难!民调:5成以上美国人不会再选他
+## 18       5G通信恩仇录:任正非和特朗普 两个七旬老人的宿命之战
+## 19                   美“网红”女议员呼吁启动对特朗普弹劾程序
+## 20 特朗普这回“闯大祸”了,谷歌刚对华为下狠手,全球用户可不干了
+##                                                                               publisher
+## 15                     中宏网&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t12小时前
+## 16                   海南日报&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t16小时前
+## 17                   中国日报&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t13小时前
+## 18         凤凰网&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 22:01
+## 19           新浪&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 22:00
+## 20 中华网军事频道&lt;U+00A0&gt;&lt;U+00A0&gt;            \t\t\t\t\n\t\t\t\t\t\t2019年05月22日 21:31
+##    date time
+## 15 &lt;NA&gt; &lt;NA&gt;
+## 16 &lt;NA&gt; &lt;NA&gt;
+## 17 &lt;NA&gt; &lt;NA&gt;
+## 18 &lt;NA&gt; &lt;NA&gt;
+## 19 &lt;NA&gt; &lt;NA&gt;
+## 20 &lt;NA&gt; &lt;NA&gt;</code></pre>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
