@@ -6,10 +6,28 @@
     <description>Recent content in Posts on 鱼记苦瓜糖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>绘图尝试1.0：</title>
+      <link>/2019/05/29/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%951-0/</link>
+      <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/29/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%951-0/</guid>
+      <description>点函数：
+x&amp;lt;-1:10
+y&amp;lt;-1:10
+plot(x,y)
+Rplot
+(点击“Rplot”即可查看plot散点函数图)
+线函数：
+x&amp;lt;-1:10y&amp;lt;-1:10plot(x,y,“l”)
+Rplot2
+(点击“Rplot2”即可查看plot线函数图)</description>
+    </item>
     
     <item>
       <title>爬虫尝试2.0：爬取关于特朗普的新闻网页</title>
@@ -98,7 +116,8 @@ dat &amp;lt;- data.frame(Title = title, Author = author, Journal = journal)</des
       <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/2019/05/08/%E6%94%B6%E8%97%8F%E5%90%91-git%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/</guid>
-      <description>git 学习资料用R语言的blogdown + hugo + netlify + github搭建静态博客系统，用rstudio专注于写作。
+      <description>git 学习资料用R语言的blogdown + hugo + netlify+github
+搭建静态博客系统，用rstudio专注于写作。
 （1）准备工作
 安装R(https://www.r-project.org/)
 安装rstudio(https://www.rstudio.com/)
@@ -118,7 +137,8 @@ global……terminal——Git bash
 安装blogdown：
 install.packages(‘blogdown’)
 安装hugo
-blogdown::install_hugo()</description>
+blogdown::install_hugo()
+如果安装hugo的时候出现下面的错误(貌似有同志也有这个问题)：</description>
     </item>
     
     <item>

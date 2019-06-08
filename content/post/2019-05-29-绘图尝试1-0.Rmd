@@ -1,0 +1,24 @@
+---
+title: 绘图尝试1.0：
+author: 鱼记苦瓜糖
+date: '2019-05-29'
+slug: 绘图尝试1-0
+categories:
+  - R
+tags: []
+---
+点函数：  
+x<-1:10  
+y<-1:10  
+plot(x,y)  
+[Rplot](./content/post/Rplot.png)  
+(点击“Rplot”即可查看plot散点函数图)   
+线函数：  
+x<-1:10
+y<-1:10
+plot(x,y,"l")  
+[Rplot2](./content/post/Rplot2.png)    
+(点击“Rplot2”即可查看plot线函数图)
+
+
+
