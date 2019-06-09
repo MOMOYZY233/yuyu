@@ -1,5 +1,5 @@
 ---
-title: 绘图尝试1.0：
+title: 绘图尝试1.0：plot函数的许多面
 author: 鱼记苦瓜糖
 date: '2019-05-29'
 slug: 绘图尝试1-0
@@ -10,7 +10,24 @@ tags: []
 
 
 
-<p>点函数：<br />
+<p>主要参数含义：<br />
+（1）type为一个字符的字符串，用于给定绘图的类型，可选的值如下：<br />
+“p”：绘点（默认值）；<br />
+“l”：绘制线；<br />
+“b”：同时绘制点和线；<br />
+“c”：仅绘制参数“b”所示的线；<br />
+“o”：同时绘制点和线，且线穿过点；<br />
+“h”：绘制出点到横坐标轴的垂直线；<br />
+“s”：绘制出阶梯图（先横后纵）；<br />
+“S”：绘制出阶梯图（先纵后竖）；<br />
+“n”：作空图。<br />
+（2）main参数 字符串，给出图形的标题；<br />
+（3）sub参数 字符串，给出图形的子标题；<br />
+（4）xlab 和 ylab参数 字符串，用于给出x轴和y轴的标签。<br />
+（5）xlim 和 ylim参数 都是二维向量，分别表示x轴和y轴的取值范围。<br />
+(6)col:描点的颜色<br />
+(7)pch:描点的样式，19代号为实心圆点，也可以换成其他代号。<br />
+点函数：<br />
 x&lt;-1:10<br />
 y&lt;-1:10<br />
 plot(x,y)<br />
@@ -21,4 +38,36 @@ x&lt;-1:10
 y&lt;-1:10
 plot(x,y,“l”)<br />
 <a href="./content/post/Rplot2.png">Rplot2</a><br />
-(点击“Rplot2”即可查看plot线函数图)</p>
+(点击“Rplot2”即可查看plot线函数图)
+x&lt;-c(20,30)<br />
+y&lt;-c(40,50)<br />
+plot(x,y,“b”)<br />
+<a href="./content/post/Rplot3.png">Rplot3</a><br />
+(点击“Rplot3”即可查看plot不过端点的线函数图)
+x&lt;-1:20<br />
+y&lt;-1:20<br />
+plot(x,y,“l”,main=“完整plot函数演示图”,xlab=“x值”,ylab=“y值”)
+<a href="./content/post/Rplot4.png">Rplot4</a><br />
+(点击“Rplot4”即可查看带有完整结构的线函数图)<br />
+进阶版：<br />
+先用runif()函数产生了两列随机数：x1,y1，再用plot()函数直接画图<br />
+x1 &lt;- round(runif(20,min = 0 ,max = 100))
+x1
+[1] 31 39 63 48 68 21 52 58 21 41 33 86 26 6 6 31 34 28 53 49
+y1 &lt;- round(runif(20,min = 0 , max = 100))
+y1
+[1] 27 71 52 29 40 8 86 42 52 61 90 4 76 93 81 3 78 24 24 92
+plot(x1,y1,main = “我是标题”,xlab = “我是x轴”,ylab = “我是y轴”,xlim = c(0,100),ylim = c(0,100),col = “red”,pch = 19)
+<a href="./content/post/Rplot5.png">Rplot5</a><br />
+(点击“Rplot5”即可查看带有完整结构的有色点函数图)<br />
+再进阶版：<br />
+如：绘制某班20名未挂科学生的考试成绩折线图<br />
+x&lt;-1:20<br />
+y&lt;-round(runif(20,min=60,max=100))<br />
+plot(x,y,type=“l”,ylim=c(60,100))<br />
+<a href="./content/post/Rplot6.png">Rplot6</a><br />
+(点击“Rplot6”即可查看成绩折线图)<br />
+现在，我想让这条线是红色的：<br />
+lines(x,y,col=“red”)<br />
+<a href="./content/post/Rplot7.png">Rplot7</a><br />
+(点击“Rplot6”即可查看成绩红色折线图)</p>

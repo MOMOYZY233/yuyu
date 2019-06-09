@@ -12,12 +12,29 @@
     
     
     <item>
-      <title>绘图尝试1.0：</title>
+      <title>绘图尝试1.0：plot函数的许多面</title>
       <link>/2019/05/29/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%951-0/</link>
       <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/2019/05/29/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%951-0/</guid>
-      <description>点函数：
+      <description>主要参数含义：
+（1）type为一个字符的字符串，用于给定绘图的类型，可选的值如下：
+“p”：绘点（默认值）；
+“l”：绘制线；
+“b”：同时绘制点和线；
+“c”：仅绘制参数“b”所示的线；
+“o”：同时绘制点和线，且线穿过点；
+“h”：绘制出点到横坐标轴的垂直线；
+“s”：绘制出阶梯图（先横后纵）；
+“S”：绘制出阶梯图（先纵后竖）；
+“n”：作空图。
+（2）main参数 字符串，给出图形的标题；
+（3）sub参数 字符串，给出图形的子标题；
+（4）xlab 和 ylab参数 字符串，用于给出x轴和y轴的标签。
+（5）xlim 和 ylim参数 都是二维向量，分别表示x轴和y轴的取值范围。
+(6)col:描点的颜色
+(7)pch:描点的样式，19代号为实心圆点，也可以换成其他代号。
+点函数：
 x&amp;lt;-1:10
 y&amp;lt;-1:10
 plot(x,y)
@@ -26,7 +43,17 @@ Rplot
 线函数：
 x&amp;lt;-1:10y&amp;lt;-1:10plot(x,y,“l”)
 Rplot2
-(点击“Rplot2”即可查看plot线函数图)</description>
+(点击“Rplot2”即可查看plot线函数图)x&amp;lt;-c(20,30)
+y&amp;lt;-c(40,50)
+plot(x,y,“b”)
+Rplot3
+(点击“Rplot3”即可查看plot不过端点的线函数图)x&amp;lt;-1:20
+y&amp;lt;-1:20
+plot(x,y,“l”,main=“完整plot函数演示图”,xlab=“x值”,ylab=“y值”)Rplot4
+(点击“Rplot4”即可查看带有完整结构的线函数图)
+进阶版：
+先用runif()函数产生了两列随机数：x1,y1，再用plot()函数直接画图
+x1 &amp;lt;- round(runif(20,min = 0 ,max = 100))x1[1] 31 39 63 48 68 21 52 58 21 41 33 86 26 6 6 31 34 28 53 49y1 &amp;lt;- round(runif(20,min = 0 , max = 100))y1[1] 27 71 52 29 40 8 86 42 52 61 90 4 76 93 81 3 78 24 24 92plot(x1,y1,main = “我是标题”,xlab = “我是x轴”,ylab = “我是y轴”,xlim = c(0,100),ylim = c(0,100),col = “red”,pch = 19)Rplot5</description>
     </item>
     
     <item>
