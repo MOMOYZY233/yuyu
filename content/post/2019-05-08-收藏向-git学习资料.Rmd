@@ -72,7 +72,7 @@ git config --global user.name yourname  # "你的名字或昵称"
 git config --global user.email youremail@xxx.com # "你的邮箱"  
 git add .  
 git commit -m"MOMOYZY233"  
-git push.  
+git push
 blogdown::serve_site()  
 new post  
 然后push~  

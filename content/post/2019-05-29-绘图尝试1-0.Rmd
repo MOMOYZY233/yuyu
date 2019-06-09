@@ -1,11 +1,10 @@
 ---
-title: 绘图尝试1.0：plot函数的许多面
-author: 鱼记苦瓜糖
+title: "绘图尝试1.0：plot和hist等函数的许多面"
+author: "鱼记苦瓜糖"
 date: '2019-05-29'
 slug: 绘图尝试1-0
-categories:
-  - R
 tags: []
+categories: R
 ---
 主要参数含义：  
 （1）type为一个字符的字符串，用于给定绘图的类型，可选的值如下：  
@@ -48,13 +47,13 @@ plot(x,y,"l",main="完整plot函数演示图",xlab="x值",ylab="y值")
 (点击"Rplot4"即可查看带有完整结构的线函数图)  
 进阶版：  
 先用runif()函数产生了两列随机数：x1,y1，再用plot()函数直接画图  
-x1 <- round(runif(20,min = 0 ,max = 100))
-x1
- [1] 31 39 63 48 68 21 52 58 21 41 33 86 26  6  6 31 34 28 53 49
-y1 <- round(runif(20,min = 0 , max = 100))
-y1
- [1] 27 71 52 29 40  8 86 42 52 61 90  4 76 93 81  3 78 24 24 92
-plot(x1,y1,main = "我是标题",xlab = "我是x轴",ylab = "我是y轴",xlim = c(0,100),ylim = c(0,100),col = "red",pch = 19)
+x1 <- round(runif(20,min = 0 ,max = 100))  
+x1  
+ [1] 31 39 63 48 68 21 52 58 21 41 33 86 26  6  6 31 34 28 53 49  
+y1 <- round(runif(20,min = 0 , max = 100))  
+y1  
+ [1] 27 71 52 29 40  8 86 42 52 61 90  4 76 93 81  3 78 24 24 92  
+plot(x1,y1,main = "我是标题",xlab = "我是x轴",ylab = "我是y轴",xlim = c(0,100),ylim = c(0,100),col = "red",pch = 19)    
 [Rplot5](./content/post/Rplot5.png)   
 (点击"Rplot5"即可查看带有完整结构的有色点函数图)  
 再进阶版：  
@@ -67,11 +66,69 @@ plot(x,y,type="l",ylim=c(60,100))
 现在，我想让这条线是红色的：  
 lines(x,y,col="red")  
 [Rplot7](./content/post/Rplot7.png)      
-(点击"Rplot6"即可查看成绩红色折线图)  
+(点击"Rplot7"即可查看成绩红色折线图)  
+==========（假装这是一条分割线）==============  
+想要更丰富的颜色？
+再进阶版：五彩表格  
+RColorBrewer::brewer.pal函数的功能是直接调用这个包已经配好的颜色  
+barplot(1:5,col=RColorBrewer::brewer.pal(n = 5,name = "Set1"))  
+[Rplot8](./content/post/Rplot8.png)   
+(点击"Rplot8"即可查看五彩Set折线图)    
+组合图：  
+barplot(1:5,col=RColorBrewer::brewer.pal(n = 5,name = "Set2"))    
+points(rep(3,5),pch=20,cex=2,col="blue")  
+[Rplot9](./content/post/Rplot9.png)   
+(点击"Rplot9"即可查看图)  
+再加一条折线图：  
+lines(sample(1:5),col="green",lwd=2,lty=2)    
+[Rplot10](./content/post/Rplot10.png)    
+(点击"Rplot10"即可查看图)   
+==========假装这是另一条分割线==================  
+
+hist函数   
+hist(v,main,xlab,xlim,ylim,breaks,col,border)  
+v - 是包含直方图中使用数值的向量。  
+main - 表示图表的标题。  
+col - 用于设置条的颜色。  
+border - 用于设置每个栏的边框颜色。  
+xlab - 用于描述x轴。  
+xlim - 用于指定x轴上的值范围。  
+ylim - 用于指定y轴上的值范围。  
+breaks - 是用来提及每个栏的宽度。  
+
+
+绘制带“标签”标注的身高直方图   
+
+height<-c(160,162,163,164,165,170,172,170,180,181,185,187,189,190) 
+hist(height,col="lightblue",border="white",labels=TRUE,ylim=c(0,7.8))  
+[Rplot11](./content/post/Rplot11.png)    
+(点击"Rplot11"即可查看图)   
+省略标注：  
+height<-c(160,162,163,164,165,170,172,170,180,181,185,187,189,190)
+hist(height,col="lightblue",border="white",labels=FALSE,ylim=c(0,7.8))   
+============================================  
+breaks参数，freq参数，density参数和angle参数的含义及用法。  
+
+freq参数是逻辑变量，如果设置为TRUE，则直方图的数据为频数，若为FALSE，则为概率密度。当仅当breaks为等距，且为指定probability时，freq默认为TRUE。  
+density参数是指阴影线的密度，即每英寸（2.54厘米）的线数。默认值为NULL值，意味着没有阴影线，非正值也不会绘制阴影线。  
+angle参数是设置阴影线的斜度，以逆时针角度给出，默认为45度。  
+依旧以身高数据为例：  
+height<-c(160,162,163,164,165,170,172,170,180,181,185,187,189,190)
+hist(height,breaks=8,freq=FALSE,density=6,angle=30)  
+[Rplot12](./content/post/Rplot12.png)    
+(点击"Rplot12"即可查看图)   
+再以重量例：  
+weight <- c(9,13,21,8,36,22,12,41,31,33,19)   
+hist(weight, main="我叫彩色直方图", xlab = "重量", ylab="高度",col ="orange",border = "yellow", xlim = c(0,50), ylim = c(0,5),breaks = 5)  
+[Rplot13](./content/post/Rplot13.png)    
+(点击"Rplot13"即可查看图)   
 
 
 
 
 
 
-
+参考资料：
+CSDN博客
+原文出自【易百教程】，商业转载请联系作者获得授权，非商业请保留原文链接：https://www.yiibai.com/r/r_histograms.html  
+https://baijiahao.baidu.com/s?id=1610939257081692712&wfr=spider&for=pc  
