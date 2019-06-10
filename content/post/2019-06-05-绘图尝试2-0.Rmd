@@ -1,5 +1,5 @@
 ---
-title: 绘图尝试2.0：全景式展现ggplot2
+title: 绘图尝试2.0：全景式展现初级ggplot2
 author: 鱼记苦瓜糖
 date: '2019-06-05'
 slug: 绘图尝试2-0
