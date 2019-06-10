@@ -1,5 +1,5 @@
 ---
-title: "绘图尝试1.0：plot和hist等函数的许多面(ps：看图需戳)"
+title: "绘图尝试1.0：plot和hist等函数的许多面(ps：看图请戳哦)"
 author: "鱼记苦瓜糖"
 date: '2019-05-29'
 slug: 绘图尝试1-0
