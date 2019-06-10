@@ -20,9 +20,9 @@ categories: R
 （2）main参数 字符串，给出图形的标题；  
 （3）sub参数 字符串，给出图形的子标题；  
 （4）xlab 和 ylab参数 字符串，用于给出x轴和y轴的标签。  
-（5）xlim 和 ylim参数 都是二维向量，分别表示x轴和y轴的取值范围。   
- (6)col:描点的颜色  
- (7)pch:描点的样式，19代号为实心圆点，也可以换成其他代号。  
+（5）xlim 和 ylim参数 都是二维向量，分别表示x轴和y轴的取值范围。  
+（6）col:描点的颜色  
+（7）pch:描点的样式，19代号为实心圆点，也可以换成其他代号。  
 点函数：  
 x<-1:10  
 y<-1:10  
@@ -44,12 +44,12 @@ x<-1:10
 y<-1:10
 plot(x,y,"l")  
 [Rplot2](./content/post/Rplot2.png)    
-(点击“Rplot2”即可查看plot线函数图)
+(点击“Rplot2”即可查看plot线函数图)  
 x<-c(20,30)  
 y<-c(40,50)  
 plot(x,y,"b")  
 [Rplot3](./content/post/Rplot3.png)  
-(点击"Rplot3"即可查看plot不过端点的线函数图)
+(点击"Rplot3"即可查看plot不过端点的线函数图)  
 x<-1:20    
 y<-1:20  
 plot(x,y,"l",main="完整plot函数演示图",xlab="x值",ylab="y值")
