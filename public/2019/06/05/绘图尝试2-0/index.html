@@ -62,7 +62,7 @@
 
   <article class="article">
     
-    <span class="article-duration">2 min read</span>
+    <span class="article-duration">3 min read</span>
     
 
     <h1 class="article-title">绘图尝试2.0：全景式展现ggplot2</h1>
@@ -200,15 +200,66 @@ head(wdata)</code></pre>
 <p><img src="/post/2019-06-05-绘图尝试2-0_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 4、箱线图示例</p>
 <pre class="r"><code>ggplot(ToothGrowth, aes(x=dose, y=len))+ geom_boxplot(aes(fill=supp))</code></pre>
-<p><img src="/post/2019-06-05-绘图尝试2-0_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
-<p>参考资料：
-<a href="https://blog.csdn.net/dollyh/article/details/74332208" class="uri">https://blog.csdn.net/dollyh/article/details/74332208</a>
-<a href="https://www.jianshu.com/p/9c1065904d53" class="uri">https://www.jianshu.com/p/9c1065904d53</a>
-<a href="https://www.jianshu.com/p/03719d7c207f" class="uri">https://www.jianshu.com/p/03719d7c207f</a>
-<a href="https://www.cnblogs.com/nxld/p/6059603.html" class="uri">https://www.cnblogs.com/nxld/p/6059603.html</a>
-<a href="https://www.cnblogs.com/tecdat/p/9359677.html" class="uri">https://www.cnblogs.com/tecdat/p/9359677.html</a>
-<a href="https://www.jianshu.com/p/e2d4a4d3d0d2" class="uri">https://www.jianshu.com/p/e2d4a4d3d0d2</a>
-<a href="https://www.cnblogs.com/ljhdo/archive/2018/08/02/4921588.html" class="uri">https://www.cnblogs.com/ljhdo/archive/2018/08/02/4921588.html</a></p>
+<p><img src="/post/2019-06-05-绘图尝试2-0_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+5、直方图</p>
+<pre class="r"><code>require(ggplot2)
+data(diamonds)
+set.seed(42)
+small &lt;- diamonds[sample(nrow(diamonds), 1000), ]
+head(small)</code></pre>
+<pre><code>## # A tibble: 6 x 10
+##   carat cut       color clarity depth table price     x     y     z
+##   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1  0.39 Ideal     I     VVS2     60.8    56   849  4.74  4.76  2.89
+## 2  1.12 Very Good G     SI2      63.3    58  4478  6.7   6.63  4.22
+## 3  0.51 Very Good G     VVS2     62.9    57  1750  5.06  5.12  3.2 
+## 4  0.52 Very Good D     VS1      62.5    57  1829  5.11  5.16  3.21
+## 5  0.28 Very Good E     VVS2     61.4    55   612  4.22  4.25  2.6 
+## 6  1.01 Fair      F     SI1      67.2    60  4276  6.06  6     4.05</code></pre>
+<pre class="r"><code>summary(small)</code></pre>
+<pre><code>##      carat             cut      color      clarity        depth      
+##  Min.   :0.23   Fair     : 33   D:111   SI1    :237   Min.   :52.30  
+##  1st Qu.:0.40   Good     :102   E:196   VS2    :233   1st Qu.:61.10  
+##  Median :0.71   Very Good:228   F:155   SI2    :169   Median :61.90  
+##  Mean   :0.80   Premium  :230   G:235   VS1    :150   Mean   :61.82  
+##  3rd Qu.:1.03   Ideal    :407   H:143   VVS2   : 92   3rd Qu.:62.60  
+##  Max.   :3.00                   I:103   VVS1   : 74   Max.   :68.80  
+##                                 J: 57   (Other): 45                  
+##      table           price               x               y        
+##  Min.   :52.00   Min.   :  345.0   Min.   :3.910   Min.   :3.940  
+##  1st Qu.:56.00   1st Qu.:  992.8   1st Qu.:4.740   1st Qu.:4.747  
+##  Median :57.00   Median : 2500.0   Median :5.725   Median :5.735  
+##  Mean   :57.46   Mean   : 3881.9   Mean   :5.744   Mean   :5.744  
+##  3rd Qu.:59.00   3rd Qu.: 5155.5   3rd Qu.:6.500   3rd Qu.:6.490  
+##  Max.   :67.00   Max.   :18493.0   Max.   :9.320   Max.   :9.190  
+##                                                                   
+##        z        
+##  Min.   :2.410  
+##  1st Qu.:2.920  
+##  Median :3.550  
+##  Mean   :3.553  
+##  3rd Qu.:4.030  
+##  Max.   :5.500  
+## </code></pre>
+<pre class="r"><code>ggplot(small)+geom_histogram(aes(x=price),binwidth=50)</code></pre>
+<p><img src="/post/2019-06-05-绘图尝试2-0_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<pre class="r"><code>#填充颜色 按照切工cut
+ggplot(small)+geom_histogram(aes(x=price, fill=cut),binwidth=50)</code></pre>
+<p><img src="/post/2019-06-05-绘图尝试2-0_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
+<pre class="r"><code>#使用position=&quot;fill&quot;，按照相对比例来画
+ggplot(small)+geom_histogram(aes(x=price, fill=cut,binwidth=50), position=&quot;fill&quot;)</code></pre>
+<pre><code>## Warning: Ignoring unknown aesthetics: binwidth</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="/post/2019-06-05-绘图尝试2-0_files/figure-html/unnamed-chunk-20-3.png" width="672" /></p>
+<p>参考资料：<br />
+<a href="https://blog.csdn.net/dollyh/article/details/74332208" class="uri">https://blog.csdn.net/dollyh/article/details/74332208</a><br />
+<a href="https://www.jianshu.com/p/9c1065904d53" class="uri">https://www.jianshu.com/p/9c1065904d53</a><br />
+<a href="https://www.jianshu.com/p/03719d7c207f" class="uri">https://www.jianshu.com/p/03719d7c207f</a><br />
+<a href="https://www.cnblogs.com/nxld/p/6059603.html" class="uri">https://www.cnblogs.com/nxld/p/6059603.html</a><br />
+<a href="https://www.cnblogs.com/tecdat/p/9359677.html" class="uri">https://www.cnblogs.com/tecdat/p/9359677.html</a><br />
+<a href="https://www.jianshu.com/p/e2d4a4d3d0d2" class="uri">https://www.jianshu.com/p/e2d4a4d3d0d2</a><br />
+<a href="https://www.cnblogs.com/ljhdo/archive/2018/08/02/4921588.html" class="uri">https://www.cnblogs.com/ljhdo/archive/2018/08/02/4921588.html</a><br />
+<a href="https://www.cnblogs.com/zongfa/p/8535350.html" class="uri">https://www.cnblogs.com/zongfa/p/8535350.html</a></p>
 
     </div>
   </article>

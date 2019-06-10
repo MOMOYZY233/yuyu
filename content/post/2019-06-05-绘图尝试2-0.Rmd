@@ -121,12 +121,27 @@ qplot(sex, weight, data = wdata, geom = "violin")
 ```{r}
 ggplot(ToothGrowth, aes(x=dose, y=len))+ geom_boxplot(aes(fill=supp))
 ```
+5、直方图  
+```{r}
+require(ggplot2)
+data(diamonds)
+set.seed(42)
+small <- diamonds[sample(nrow(diamonds), 1000), ]
+head(small)
+summary(small)
+ggplot(small)+geom_histogram(aes(x=price),binwidth=50)
+#填充颜色 按照切工cut
+ggplot(small)+geom_histogram(aes(x=price, fill=cut),binwidth=50)
+#使用position="fill"，按照相对比例来画
+ggplot(small)+geom_histogram(aes(x=price, fill=cut,binwidth=50), position="fill")
+```
 
-参考资料：
-https://blog.csdn.net/dollyh/article/details/74332208
-https://www.jianshu.com/p/9c1065904d53
-https://www.jianshu.com/p/03719d7c207f
-https://www.cnblogs.com/nxld/p/6059603.html
-https://www.cnblogs.com/tecdat/p/9359677.html
-https://www.jianshu.com/p/e2d4a4d3d0d2
-https://www.cnblogs.com/ljhdo/archive/2018/08/02/4921588.html
+参考资料：   
+https://blog.csdn.net/dollyh/article/details/74332208  
+https://www.jianshu.com/p/9c1065904d53  
+https://www.jianshu.com/p/03719d7c207f  
+https://www.cnblogs.com/nxld/p/6059603.html  
+https://www.cnblogs.com/tecdat/p/9359677.html  
+https://www.jianshu.com/p/e2d4a4d3d0d2  
+https://www.cnblogs.com/ljhdo/archive/2018/08/02/4921588.html  
+https://www.cnblogs.com/zongfa/p/8535350.html  
