@@ -121,7 +121,7 @@ qplot(sex, weight, data = wdata, geom = "violin")
 ```{r}
 ggplot(ToothGrowth, aes(x=dose, y=len))+ geom_boxplot(aes(fill=supp))
 ```
-5、直方图  
+5、直方图示例   
 ```{r}
 require(ggplot2)
 data(diamonds)
@@ -136,7 +136,7 @@ ggplot(small)+geom_histogram(aes(x=price, fill=cut),binwidth=50)
 ggplot(small)+geom_histogram(aes(x=price, fill=cut,binwidth=50), position="fill")
 ```
 
-参考资料：   
+参考资料：    
 https://blog.csdn.net/dollyh/article/details/74332208  
 https://www.jianshu.com/p/9c1065904d53  
 https://www.jianshu.com/p/03719d7c207f  
