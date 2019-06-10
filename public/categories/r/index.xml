@@ -6,10 +6,20 @@
     <description>Recent content in R on 鱼记苦瓜糖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>绘图尝试2.0：全景式展现ggplot2</title>
+      <link>/2019/06/05/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%952-0/</link>
+      <pubDate>Wed, 05 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/06/05/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%952-0/</guid>
+      <description>1、课堂回顾
+h&amp;lt;-160:180h## [1] 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176## [18] 177 178 179 180w&amp;lt;-50:70w## [1] 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70plot(h,w,col=&amp;quot;red&amp;quot;)library(lattice)xyplot(h~w)library(ggplot2)## Registered S3 methods overwritten by &amp;#39;ggplot2&amp;#39;:## method from ## [.quosures rlang## c.</description>
+    </item>
     
     <item>
       <title>绘图尝试1.0：plot和hist等函数的许多面(ps：看图需戳)</title>
@@ -40,22 +50,14 @@ y&amp;lt;-1:10
 plot(x,y)
 Rplot
 (点击“Rplot”即可查看plot散点函数图)
-线函数：
-x&amp;lt;-1:10y&amp;lt;-1:10plot(x,y,“l”)
-Rplot2
-(点击“Rplot2”即可查看plot线函数图)x&amp;lt;-c(20,30)
-y&amp;lt;-c(40,50)
-plot(x,y,“b”)
-Rplot3
-(点击“Rplot3”即可查看plot不过端点的线函数图)x&amp;lt;-1:20
-y&amp;lt;-1:20
-plot(x,y,“l”,main=“完整plot函数演示图”,xlab=“x值”,ylab=“y值”)Rplot4
-(点击“Rplot4”即可查看带有完整结构的线函数图)
-进阶版：
-先用runif()函数产生了两列随机数：x1,y1，再用plot()函数直接画图
-x1 &amp;lt;- round(runif(20,min = 0 ,max = 100))
-x1
-[1] 31 39 63 48 68 21 52 58 21 41 33 86 26 6 6 31 34 28 53 49</description>
+彩色点：
+h&amp;lt;-160:180
+h
+[1] 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176
+[18] 177 178 179 180
+w&amp;lt;-50:70
+w
+[1] 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70plot(h,w,col=“red”)</description>
     </item>
     
     <item>

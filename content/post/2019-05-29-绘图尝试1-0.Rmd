@@ -28,8 +28,18 @@ x<-1:10
 y<-1:10  
 plot(x,y)  
 [Rplot](./content/post/Rplot.png)  
-(点击“Rplot”即可查看plot散点函数图)   
-线函数：  
+(点击“Rplot”即可查看plot散点函数图)    
+彩色点：  
+h<-160:180  
+h  
+[1] 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176  
+[18] 177 178 179 180  
+w<-50:70  
+w  
+[1] 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
+plot(h,w,col="red")   
+
+线函数：   
 x<-1:10
 y<-1:10
 plot(x,y,"l")  
@@ -128,7 +138,10 @@ hist(weight, main="我叫彩色直方图", xlab = "重量", ylab="高度",col ="
 
 
 
-参考资料：
-CSDN博客
-原文出自【易百教程】，商业转载请联系作者获得授权，非商业请保留原文链接：https://www.yiibai.com/r/r_histograms.html  
-https://baijiahao.baidu.com/s?id=1610939257081692712&wfr=spider&for=pc  
+参考资料：   
+CSDN博客  
+原文出自【易百教程】，商业转载请联系作者获得授权，非商业请保留原文链接：https://www.yiibai.com/r/r_histograms.html    
+https://baijiahao.baidu.com/s?id=1610939257081692712&wfr=spider&for=pc    
+https://www.cnblogs.com/malt927/p/6055249.html     
+https://blog.csdn.net/sinat_41805381/article/details/80164958     
+

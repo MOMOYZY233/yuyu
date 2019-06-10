@@ -1,0 +1,132 @@
+---
+title: 绘图尝试2.0：全景式展现ggplot2
+author: 鱼记苦瓜糖
+date: '2019-06-05'
+slug: 绘图尝试2-0
+categories:
+  - R
+tags: []
+---
+1、课堂回顾  
+```{r}
+h<-160:180
+h
+w<-50:70
+w
+plot(h,w,col="red")
+library(lattice)
+xyplot(h~w)
+library(ggplot2)
+df<- data.frame(h,w)
+df
+ggplot(data=df,aes(x=df$h,y=df$w))+geom_point(color="red",size=5)+theme_bw()+geom_line(color="blue") 
+hist(df$w,col="lightblue",border="white",labels=TRUE,ylim=c(0,7.8))
+```
+换成x：
+```{r}
+hist(df$h,col="lightblue",border="white",labels=TRUE,xlim=c(160,180))
+```
+2、散点图实例
+```{r}
+ggplot(mtcars,aes(mpg,wt))+geom_point()
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(data=mtcars, aes(x=wt, y=mpg)) +
+  geom_point() + 
+    labs(title="Automobie Data", x="Weight", y="Miles Per Gallon")
+```
+3、qplot  
+适用于散点图、箱线图、小提琴图、直方图以及密度曲线图。其绘图格式为： qplot(x, y=NULL, data, geom="auto")    
+
+x,y: 根据需要绘制的图形使用;  
+data：数据集;  
+geom：几何图形，变量x,y同时指定的话默认为散点图，只指定x的话默认为直方图  
+
+散点图示例： 
+```{r}
+library(ggplot2)
+qplot(wt,mpg,data=mtcars)
+```
+
+线图示例：
+```{r}
+library(ggplot2)
+qplot(temperature,pressure,data = pressure,geom = 'line')   
+```
+加上点  
+```{r}
+qplot(temperature,pressure,data = pressure,geom = c('line','point'))
+```
+
+直方图：  
+```{r}
+qplot(mpg,data = mtcars,binwidth=5)
+```
+
+密度图：  
+```{r}
+qplot(mpg,data = mtcars,geom = 'density')
+```
+
+箱线图：  
+```{r}
+qplot(supp,len,data=ToothGrowth,geom = 'boxplot',fill="red")
+```
+
+=======进阶版========  
+钻石散点图：  
+```{r}
+qplot(carat,price,data=diamonds)
+```
+alpha:透明度  
+```{r}
+qplot(carat,price,data=diamonds,alpha=I(1/9))
+```
+扰动点图：(jitter：抖动)     
+```{r}
+qplot(color,price/carat,data=diamonds,geom="jitter",alpha=I(1/5))
+```
+钻石重量的直方图和密度曲线图：  
+直方图：  
+```{r}
+qplot(carat,data=diamonds,geom="histogram",binwidth=2,color=color)
+```
+密度曲线图：  
+```{r}
+qplot(carat,data=diamonds,geom="density",color=color)
+```
+条形图：   
+```{r}
+qplot(color,data=diamonds,geom="bar",color=color)
+```
+箱线图：   
+```{r}
+#构造数据集
+set.seed(1234)
+wdata <- data.frame(
+  sex=factor(rep(c("F", "M"), each=200)),
+  weight=c(rnorm(200, 55), rnorm(200, 58))
+)
+head(wdata)
+qplot(sex, weight, data = wdata, geom = "boxplot", fill=sex)
+```
+小提琴图:  
+```{r}
+qplot(sex, weight, data = wdata, geom = "violin")
+```
+4、箱线图示例  
+```{r}
+ggplot(ToothGrowth, aes(x=dose, y=len))+ geom_boxplot(aes(fill=supp))
+```
+
+参考资料：
+https://blog.csdn.net/dollyh/article/details/74332208
+https://www.jianshu.com/p/9c1065904d53
+https://www.jianshu.com/p/03719d7c207f
+https://www.cnblogs.com/nxld/p/6059603.html
+https://www.cnblogs.com/tecdat/p/9359677.html
+https://www.jianshu.com/p/e2d4a4d3d0d2
+https://www.cnblogs.com/ljhdo/archive/2018/08/02/4921588.html
