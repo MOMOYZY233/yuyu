@@ -20,7 +20,7 @@
       <description>不知不觉间，互联网分析与治理这门课程已经接近尾声。
  今天是……
 Sys.Date()## [1] &amp;quot;2019-06-30&amp;quot; 现在的具体时间是……
-Sys.time()## [1] &amp;quot;2019-06-30 18:28:54 CST&amp;quot;date()## [1] &amp;quot;Sun Jun 30 18:28:54 2019&amp;quot; 从开学之初到国际周的前一天，蓦然回首才发现，时间已经过去了……
+Sys.time()## [1] &amp;quot;2019-06-30 18:30:11 CST&amp;quot;date()## [1] &amp;quot;Sun Jun 30 18:30:11 2019&amp;quot; 从开学之初到国际周的前一天，蓦然回首才发现，时间已经过去了……
 time1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;weeks&amp;quot;)## Time difference of 9 weekstime1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;days&amp;quot;)## Time difference of 63 daystime1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;hours&amp;quot;)## Time difference of 1512 hourstime1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;mins&amp;quot;)## Time difference of 90720 minstime1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;secs&amp;quot;)## Time difference of 5443200 secs 是的，时间已经过去了至少9周，63天，1512时，90720分，5443200秒。</description>
     </item>
     
