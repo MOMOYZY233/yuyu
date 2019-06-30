@@ -1,0 +1,74 @@
+---
+title: 我的时间函数：记录本课程的学习时间
+author: 鱼记苦瓜糖
+date: '2019-06-30'
+slug: 我的时间函数-记录本课程的学习时间
+categories:
+  - R
+tags: []
+---
+
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/viz/viz.js"></script>
+<link href="/rmarkdown-libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/grViz-binding/grViz.js"></script>
+
+
+<p>  不知不觉间，互联网分析与治理这门课程已经接近尾声。</p>
+<p>  今天是……</p>
+<pre class="r"><code>Sys.Date()</code></pre>
+<pre><code>## [1] &quot;2019-06-30&quot;</code></pre>
+<p>  现在的具体时间是……</p>
+<pre class="r"><code>Sys.time()</code></pre>
+<pre><code>## [1] &quot;2019-06-30 18:28:54 CST&quot;</code></pre>
+<pre class="r"><code>date()</code></pre>
+<pre><code>## [1] &quot;Sun Jun 30 18:28:54 2019&quot;</code></pre>
+<p>  从开学之初到国际周的前一天，蓦然回首才发现，时间已经过去了……</p>
+<pre class="r"><code>time1=Sys.Date()
+time2=as.Date(&quot;2019-04-28&quot;)
+difftime(time1,time2,units=&quot;weeks&quot;)</code></pre>
+<pre><code>## Time difference of 9 weeks</code></pre>
+<pre class="r"><code>time1=Sys.Date()
+time2=as.Date(&quot;2019-04-28&quot;)
+difftime(time1,time2,units=&quot;days&quot;)</code></pre>
+<pre><code>## Time difference of 63 days</code></pre>
+<pre class="r"><code>time1=Sys.Date()
+time2=as.Date(&quot;2019-04-28&quot;)
+difftime(time1,time2,units=&quot;hours&quot;)</code></pre>
+<pre><code>## Time difference of 1512 hours</code></pre>
+<pre class="r"><code>time1=Sys.Date()
+time2=as.Date(&quot;2019-04-28&quot;)
+difftime(time1,time2,units=&quot;mins&quot;)</code></pre>
+<pre><code>## Time difference of 90720 mins</code></pre>
+<pre class="r"><code>time1=Sys.Date()
+time2=as.Date(&quot;2019-04-28&quot;)
+difftime(time1,time2,units=&quot;secs&quot;)</code></pre>
+<pre><code>## Time difference of 5443200 secs</code></pre>
+<p>  是的，时间已经过去了至少9周，63天，1512时，90720分，5443200秒。</p>
+<p>  一个24K纯度的文科生，从接触R时的瑟瑟发抖心生畏惧到现在……至少看这个程序有了很多底气！</p>
+<p>  学期末，课程即将结束，不想要太煽情。但是打开自己网站的目录一看，却又产生了一种微妙的、难以言说的复杂心情。</p>
+<p>  回顾这门课程的学习历程，我大致经历了以下几个阶段……</p>
+<pre class="r"><code>library(DiagrammeR)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
+##   method         from 
+##   [.quosures     rlang
+##   c.quosures     rlang
+##   print.quosures rlang</code></pre>
+<pre class="r"><code>grViz(&quot;
+digraph fig{
+sc[label=&#39;最简单的输入文字&#39;,shape=box]
+sd[label=&#39;6月份的尾巴用R告别&#39;,shape=box]
+sc -&gt; &#39;4月份开启R的旅程&#39;-&gt;&#39;插入图片&#39;-&gt;&#39;搭建网站&#39;-&gt;&#39;网站的即时更新&#39;-&gt;&#39;Git&#39;-&gt;&#39;用R爬虫&#39;-&gt;&#39;用R画图&#39;-&gt;&#39;用R绘制词云&#39;-&gt;&#39;用R绘制流程图&#39;-&gt;&#39;用R写文&#39;-&gt;sd
+}&quot;)</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"diagram":"\ndigraph fig{\nsc[label=\"最简单的输入文字\",shape=box]\nsd[label=\"6月份的尾巴用R告别\",shape=box]\nsc -> \"4月份开启R的旅程\"->\"插入图片\"->\"搭建网站\"->\"网站的即时更新\"->\"Git\"->\"用R爬虫\"->\"用R画图\"->\"用R绘制词云\"->\"用R绘制流程图\"->\"用R写文\"->sd\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>  感谢亲爱的老师，感谢帮助过我的佳星、小沈、琴琴、海艳同学，在我为学习R崩溃甚至“走投无路”的时候，总会伸出援手，让我不再慌乱继续淡定前行。</p>
+<p>  感谢大神YIHUI和CSDN，通过学习网络教程，我又拥有了额外的收获。</p>
+<p>  感谢一些说不上来名字的国际友人，我在陷入僵局时偶然向github发送的越洋邮件先后被好几位热心的朋友收到，并且他们多次给了我详细又中肯的建议。（事实上，因为邮件来往，个人感觉自己的英文写作能力甚至还得到了锻炼 笑）</p>
+<p>  感谢这个学期一直支持我的家人和朋友，感谢计算机大佬猛叔，还有最亲爱的老段。</p>
+<p>  最后，感谢，感恩，感激。</p>
+<p>  我现在发现，文科生接触一些编程语言并不是一件异想天开、难以做到的事情，尽管这个学习的过程令人痛苦难熬。</p>
+<p>  一直没有想象的那样做到完美极致，但一切一点都不像自己以为的那么糟糕。</p>
+<p>  突然想到了当初起“鱼记苦瓜糖”这个名字的初衷：那就是生活很苦，那你要做自己的糖。这样想想，一切都很明朗。</p>
+<p>  那么，再会啦。我的学习还是要继续的，尽管是一个菜鸟，但是混迹在人群中一直默默努力的话，成为更优秀的人也不是没有可能哒，对吧？（笑）</p>
+<p>  加油ヾ(◍°∇°◍)ﾉﾞ！</p>

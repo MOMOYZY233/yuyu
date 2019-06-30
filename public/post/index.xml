@@ -6,10 +6,23 @@
     <description>Recent content in Posts on 鱼记苦瓜糖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>我的时间函数：记录本课程的学习时间</title>
+      <link>/2019/06/30/%E6%88%91%E7%9A%84%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0-%E8%AE%B0%E5%BD%95%E6%9C%AC%E8%AF%BE%E7%A8%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Sun, 30 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/06/30/%E6%88%91%E7%9A%84%E6%97%B6%E9%97%B4%E5%87%BD%E6%95%B0-%E8%AE%B0%E5%BD%95%E6%9C%AC%E8%AF%BE%E7%A8%8B%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%97%B6%E9%97%B4/</guid>
+      <description>不知不觉间，互联网分析与治理这门课程已经接近尾声。
+ 今天是……
+Sys.Date()## [1] &amp;quot;2019-06-30&amp;quot; 现在的具体时间是……
+Sys.time()## [1] &amp;quot;2019-06-30 18:28:54 CST&amp;quot;date()## [1] &amp;quot;Sun Jun 30 18:28:54 2019&amp;quot; 从开学之初到国际周的前一天，蓦然回首才发现，时间已经过去了……
+time1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;weeks&amp;quot;)## Time difference of 9 weekstime1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;days&amp;quot;)## Time difference of 63 daystime1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;hours&amp;quot;)## Time difference of 1512 hourstime1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;mins&amp;quot;)## Time difference of 90720 minstime1=Sys.Date()time2=as.Date(&amp;quot;2019-04-28&amp;quot;)difftime(time1,time2,units=&amp;quot;secs&amp;quot;)## Time difference of 5443200 secs 是的，时间已经过去了至少9周，63天，1512时，90720分，5443200秒。</description>
+    </item>
     
     <item>
       <title>绘图尝试4.0.2 绘制流程图</title>
