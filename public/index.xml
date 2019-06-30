@@ -6,10 +6,43 @@
     <description>Recent content on 鱼记苦瓜糖</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 12 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 26 Jun 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>绘图尝试4.0.2 绘制流程图</title>
+      <link>/2019/06/26/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%954-0-2-%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE/</link>
+      <pubDate>Wed, 26 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/06/26/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%954-0-2-%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE/</guid>
+      <description>每日一问：今天，你为R疯狂了吗？
+是的。
+以下流程图虽然粗糙笨拙，但使用简单的操作做出来仍然成就感满满。
+本次使用R进行了流程图的绘制。
+以下是语句。
+或许将具体的汉字名称换为符号表达语句会更加简洁。之后会再尝试！
+①检索所在专业的流程图
+library(DiagrammeR)## Registered S3 methods overwritten by &amp;#39;ggplot2&amp;#39;:## method from ## [.quosures rlang## c.quosures rlang## print.quosures rlanggrViz(&amp;quot;digraph fig{sc[label=&amp;#39;四川大学&amp;#39;,shape=circle]sc -&amp;gt; &amp;#39;文科类学院&amp;#39;-&amp;gt;&amp;#39;管理类学院&amp;#39;-&amp;gt;&amp;#39;公共管理学院&amp;#39;-&amp;gt;&amp;#39;图书情报与档案管理&amp;#39;-&amp;gt;&amp;#39;信息资源管理&amp;#39;}&amp;quot;){&#34;x&#34;:{&#34;diagram&#34;:&#34;\ndigraph fig{\nsc[label=\&#34;四川大学\&#34;,shape=circle]\nsc - \&#34;文科类学院\&#34;-\&#34;管理类学院\&#34;-\&#34;公共管理学院\&#34;-\&#34;图书情报与档案管理\&#34;-\&#34;信息资源管理\&#34;\n}&#34;,&#34;config&#34;:{&#34;engine&#34;:&#34;dot&#34;,&#34;options&#34;:null}},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}②之前的图111
+library(DiagrammeR)grViz(&amp;quot;digraph fig{sc[label=&amp;#39;“数字四川”体系框架&amp;#39;,shape=box]sc -&amp;gt; &amp;#39;数字自然生态&amp;#39;&amp;#39;数字自然生态&amp;#39;-&amp;gt;&amp;#39;智慧数字土地监测&amp;#39;&amp;#39;数字自然生态&amp;#39;-&amp;gt;&amp;#39;智慧数字动物资源&amp;#39;&amp;#39;数字自然生态&amp;#39;-&amp;gt;&amp;#39;智慧数字植被资源&amp;#39;&amp;#39;数字自然生态&amp;#39;-&amp;gt;&amp;#39;智慧数字矿产资源&amp;#39;&amp;#39;数字自然生态&amp;#39;-&amp;gt;&amp;#39;智慧数字大气监测&amp;#39;&amp;#39;数字自然生态&amp;#39;-&amp;gt;&amp;#39;智慧数字水利资源&amp;#39;&amp;#39;数字自然生态&amp;#39;-&amp;gt;&amp;#39;智慧数字灾害监防&amp;#39;sc -&amp;gt; &amp;#39;数字社会生态&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字工业（制造业）&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字社交&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字文化&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字医疗&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字农业&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字教育&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字旅游&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字社会&amp;#39;&amp;#39;数字社会生态&amp;#39;-&amp;gt;&amp;#39;智慧数字减灾&amp;#39;}&amp;quot;){&#34;</description>
+    </item>
+    
+    <item>
+      <title>绘图尝试4.0.1 绘制流程图</title>
+      <link>/2019/06/19/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%954-0-1-%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE/</link>
+      <pubDate>Wed, 19 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/06/19/%E7%BB%98%E5%9B%BE%E5%B0%9D%E8%AF%954-0-1-%E7%BB%98%E5%88%B6%E6%B5%81%E7%A8%8B%E5%9B%BE/</guid>
+      <description>与“数字四川”同时进行着的框架图。
+使用BULLMIND进行了一下构思。
+以下是把图po出来的效果，顺便达到锻炼思维和练习插入图片语句的效果。
+图111是“数字四川”的体系流程框架图
+图222是“智慧文化之非物质文化遗产”的体系流程框架图
+111
+222
+</description>
+    </item>
     
     <item>
       <title>绘图尝试3.0：词云和流程图</title>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.55.5" />
+
+
+<title>绘图尝试4.0.2 绘制流程图 - 鱼记苦瓜糖</title>
+<meta property="og:title" content="绘图尝试4.0.2 绘制流程图 - 鱼记苦瓜糖">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://user.qzone.qq.com/798211544/infocenter">Qzone</a></li>
+    
+    <li><a href="https://www.zhihu.com/people/6995c3d508c9d5e692a95535821a8f2a">知乎</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">绘图尝试4.0.2 绘制流程图</h1>
+
+    
+    <span class="article-date">2019-06-26</span>
+    
+
+    <div class="article-content">
+      
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/viz/viz.js"></script>
+<link href="/rmarkdown-libs/DiagrammeR-styles/styles.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/grViz-binding/grViz.js"></script>
+
+
+<p>每日一问：今天，你为R疯狂了吗？<br />
+是的。</p>
+<p>以下流程图虽然粗糙笨拙，但使用简单的操作做出来仍然成就感满满。<br />
+本次使用R进行了流程图的绘制。<br />
+以下是语句。<br />
+或许将具体的汉字名称换为符号表达语句会更加简洁。之后会再尝试！</p>
+<p>①检索所在专业的流程图</p>
+<pre class="r"><code>library(DiagrammeR)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
+##   method         from 
+##   [.quosures     rlang
+##   c.quosures     rlang
+##   print.quosures rlang</code></pre>
+<pre class="r"><code>grViz(&quot;
+digraph fig{
+sc[label=&#39;四川大学&#39;,shape=circle]
+sc -&gt; &#39;文科类学院&#39;-&gt;&#39;管理类学院&#39;-&gt;&#39;公共管理学院&#39;-&gt;&#39;图书情报与档案管理&#39;-&gt;&#39;信息资源管理&#39;
+}&quot;)</code></pre>
+<p><div id="htmlwidget-1" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"diagram":"\ndigraph fig{\nsc[label=\"四川大学\",shape=circle]\nsc -> \"文科类学院\"->\"管理类学院\"->\"公共管理学院\"->\"图书情报与档案管理\"->\"信息资源管理\"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+②之前的图111</p>
+<pre class="r"><code>library(DiagrammeR)
+grViz(&quot;
+digraph fig{
+sc[label=&#39;“数字四川”体系框架&#39;,shape=box]
+sc -&gt; &#39;数字自然生态&#39;
+&#39;数字自然生态&#39;-&gt;&#39;智慧数字土地监测&#39;
+&#39;数字自然生态&#39;-&gt;&#39;智慧数字动物资源&#39;
+&#39;数字自然生态&#39;-&gt;&#39;智慧数字植被资源&#39;
+&#39;数字自然生态&#39;-&gt;&#39;智慧数字矿产资源&#39;
+&#39;数字自然生态&#39;-&gt;&#39;智慧数字大气监测&#39;
+&#39;数字自然生态&#39;-&gt;&#39;智慧数字水利资源&#39;
+&#39;数字自然生态&#39;-&gt;&#39;智慧数字灾害监防&#39;
+sc -&gt; &#39;数字社会生态&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字工业（制造业）&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字社交&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字文化&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字医疗&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字农业&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字教育&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字旅游&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字社会&#39;
+&#39;数字社会生态&#39;-&gt;&#39;智慧数字减灾&#39;
+}&quot;)</code></pre>
+<p><div id="htmlwidget-2" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"diagram":"\ndigraph fig{\nsc[label=\"“数字四川”体系框架\",shape=box]\nsc -> \"数字自然生态\"\n\"数字自然生态\"->\"智慧数字土地监测\"\n\"数字自然生态\"->\"智慧数字动物资源\"\n\"数字自然生态\"->\"智慧数字植被资源\"\n\"数字自然生态\"->\"智慧数字矿产资源\"\n\"数字自然生态\"->\"智慧数字大气监测\"\n\"数字自然生态\"->\"智慧数字水利资源\"\n\"数字自然生态\"->\"智慧数字灾害监防\"\nsc -> \"数字社会生态\"\n\"数字社会生态\"->\"智慧数字工业（制造业）\"\n\"数字社会生态\"->\"智慧数字社交\"\n\"数字社会生态\"->\"智慧数字文化\"\n\"数字社会生态\"->\"智慧数字医疗\"\n\"数字社会生态\"->\"智慧数字农业\"\n\"数字社会生态\"->\"智慧数字教育\"\n\"数字社会生态\"->\"智慧数字旅游\"\n\"数字社会生态\"->\"智慧数字社会\"\n\"数字社会生态\"->\"智慧数字减灾\"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+③之前的图222</p>
+<pre class="r"><code>library(DiagrammeR)
+grViz(&quot;
+digraph fig{
+sc[label=&#39;四川省“智慧文化之非物质文化遗产”体系设计&#39;,shape=box]
+sc -&gt; &#39;基本原则&#39;
+&#39;基本原则&#39;-&gt;&#39;智能化数字化原则&#39;
+&#39;基本原则&#39;-&gt;&#39;区域协调发展原则&#39;
+&#39;基本原则&#39;-&gt;&#39;资源优化配置原则 &#39;
+&#39;基本原则&#39;-&gt;&#39;因地制宜特色化原则 &#39;
+&#39;基本原则&#39;-&gt;&#39;科学化合理化原则&#39;
+sc -&gt; &#39;主要内容&#39;
+&#39;主要内容&#39;-&gt;&#39;服务用户&#39;
+&#39;主要内容&#39;-&gt;&#39;实体设施地区分布&#39;
+&#39;主要内容&#39;-&gt;&#39;应用设施和技术&#39;
+&#39;应用设施和技术&#39;-&gt;&#39;平台软件应用层&#39;
+&#39;应用设施和技术&#39;-&gt;&#39;数据存储和管理层&#39;
+&#39;应用设施和技术&#39;-&gt;&#39;智能化控制层&#39;;
+&#39;主要内容&#39;-&gt;&#39;文化组织&#39;
+&#39;文化组织&#39;-&gt;&#39;政府组织&#39;-&gt;&#39;组织人员&#39;
+&#39;文化组织&#39;-&gt;&#39;社会组织&#39;-&gt;&#39;组织人员&#39;
+&#39;组织人员&#39;-&gt;&#39;文化专职人员&#39;
+&#39;组织人员&#39;-&gt;&#39;服务志愿者员&#39;
+&#39;主要内容&#39;-&gt;&#39;人员素养&#39;
+&#39;主要内容&#39;-&gt;&#39;数据需求规划&#39;
+&#39;数据需求规划&#39;-&gt;&#39;基础文化地理数据需求&#39;
+&#39;数据需求规划&#39;-&gt;&#39;专题数据需求&#39;
+&#39;数据需求规划&#39;-&gt;&#39;元数据需求&#39;
+&#39;数据需求规划&#39;-&gt;&#39;数据获取需求&#39;
+&#39;数据需求规划&#39;-&gt;&#39;数据质量和控制需求&#39;
+&#39;数据需求规划&#39;-&gt;&#39;数据交换和数据安全需求&#39;
+&#39;主要内容&#39;-&gt;&#39;工程阶段&#39;
+&#39;主要内容&#39;-&gt;&#39;安全规划&#39;
+}&quot;)</code></pre>
+<div id="htmlwidget-3" style="width:672px;height:480px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"diagram":"\ndigraph fig{\nsc[label=\"四川省“智慧文化之非物质文化遗产”体系设计\",shape=box]\nsc -> \"基本原则\"\n\"基本原则\"->\"智能化数字化原则\"\n\"基本原则\"->\"区域协调发展原则\"\n\"基本原则\"->\"资源优化配置原则 \"\n\"基本原则\"->\"因地制宜特色化原则 \"\n\"基本原则\"->\"科学化合理化原则\"\nsc -> \"主要内容\"\n\"主要内容\"->\"服务用户\"\n\"主要内容\"->\"实体设施地区分布\"\n\"主要内容\"->\"应用设施和技术\"\n\"应用设施和技术\"->\"平台软件应用层\"\n\"应用设施和技术\"->\"数据存储和管理层\"\n\"应用设施和技术\"->\"智能化控制层\";\n\"主要内容\"->\"文化组织\"\n\"文化组织\"->\"政府组织\"->\"组织人员\"\n\"文化组织\"->\"社会组织\"->\"组织人员\"\n\"组织人员\"->\"文化专职人员\"\n\"组织人员\"->\"服务志愿者员\"\n\"主要内容\"->\"人员素养\"\n\"主要内容\"->\"数据需求规划\"\n\"数据需求规划\"->\"基础文化地理数据需求\"\n\"数据需求规划\"->\"专题数据需求\"\n\"数据需求规划\"->\"元数据需求\"\n\"数据需求规划\"->\"数据获取需求\"\n\"数据需求规划\"->\"数据质量和控制需求\"\n\"数据需求规划\"->\"数据交换和数据安全需求\"\n\"主要内容\"->\"工程阶段\"\n\"主要内容\"->\"安全规划\"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<p>THE END</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
