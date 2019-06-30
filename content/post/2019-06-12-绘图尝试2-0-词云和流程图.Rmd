@@ -1,0 +1,47 @@
+---
+title: 绘图尝试3.0：词云和流程图
+author: 鱼记苦瓜糖
+date: '2019-06-12'
+slug: 绘图尝试2-0-词云和流程图
+categories:
+  - R
+tags: []
+---
+```{r}
+library(wordcloud2)
+wordcloud2(demoFreq,size = 0.68,shape = 'cardioid')
+```
+install.packages("DiagrammeR")  
+library(DiagrammeR)  
+grViz("  
+digraph fig{  
+sc[label='四川大学',shape=box]  
+sc -> '公共管理学院'  
+'公共管理学院'->'图书情报与档案管理'  
+'图书情报与档案管理'->'信息资源管理'  
+}")  
+
+![pic](./content/post/pic.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
